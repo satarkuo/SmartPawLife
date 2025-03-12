@@ -1,0 +1,27 @@
+.loginPage {
+    .AdminLogo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height:100vh;
+    }
+
+    .login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-image: url(img/admin/loginCover.jpg) ;
+        background-size: cover;
+        background-position: center right;
+        height:100vh;
+        
+        .loginForm {
+            width: 250px;
+
+            .btn {
+                --bs-btn-disabled-opacity: 0.8 !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,222 @@
+
+
+
+
+header.frontHeader {
+    background-color: var(--white);
+    padding: 1rem 0;
+
+    .navbar-nav a.nav-link.active { color:var(--primaryDefault)}
+}
+
+@media(max-width: 767px){ 
+  header.frontHeader { padding: 0}
+  .navbar-toggler { 
+    position: fixed; 
+    right:20px;
+    top:20px;
+    z-index: 1000;
+  
+  }
+  #navbarToggler {
+    display:block;
+    position:fixed;
+    right:-100vw;
+    top:0;
+    z-index: 999;
+    width:100vw;
+    height:100vh;
+    overflow: hidden;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);;
+    padding:80px 40px 40px;
+    background-color: var(--white);
+    opacity:0;
+    transition-duration: 0.3s;
+
+    &.show {
+      right:0;
+      opacity:1;
+    }
+    a.nav-link {
+      text-align: center;
+      display:block;
+    }
+  }
+  
+  
+}
+
+.contentAll { 
+  padding-top:98px;
+
+  //products spec - color
+  .colorSquare {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin: 0 auto 4px;
+  }
+
+  //swiper style
+  .swiper-button-prev, 
+  .swiper-button-next { 
+    color: var(--primaryDefault)
+  }
+  .swiper-button-prev:after, 
+  .swiper-button-next:after { 
+    font-size: 20px; 
+  }
+  .swiper-pagination-bullet { 
+    width:12px;
+    height:12px;
+    background:var(--gray0);
+    opacity:1 ; 
+
+    &-active { 
+      background:var(--primaryDark) ; 
+    }
+  }
+
+  //title style
+  .titleUnderline { 
+    position: relative;
+    padding:0 16px;
+  
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      z-index: 2;
+      bottom: -6px;
+      left: 0;
+      width:100%;
+      height:12px;
+      border-radius:30px;
+      background:var(--secondaryLight);
+    }
+    & span {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  //---pageStyle ---- Home.jsx 首頁
+  .homePage {
+    //swiper  - Home MainBanner
+    .swiperBanner {
+      position: relative;
+
+      .detail {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color:var(--gray0);
+        display:flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    @media ( max-width:540px ) {
+      .swiperBanner .detail {
+        bottom:5%;
+        top:auto;
+        transform: translate(-50%, -5%);
+    
+        .h5 { font-size: 1.75rem; }
+        .h6 { font-size: 1.25rem; }
+      }
+    }
+
+    //swiper  - Home product swiper
+    //限時優惠
+    @media(max-width: 767px){
+      .swiperRWD {
+        padding-right:20%;
+      }
+    }
+  
+    //bg-wave
+    .bg-wave {
+      background-position: top left;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    @media(max-width: 767px){ 
+      .bg-wave { 
+        background-size: 100% 24px;
+      } 
+    }
+    .bg-wave1 { background-image: url('img/front/bg-wave1.png'); }
+    .bg-wave2 { background-image: url('img/front/bg-wave2.png'); }
+    
+  }
+
+  //---pageStyle ---- productDetail.jsx 單一產品介紹頁
+  section.productDetail {
+    .checkedStyle {
+      .form-check-input {
+        cursor: pointer;
+        outline:none;
+        box-shadow: none;
+  
+        &:checked[type=radio] {
+          display: block !important;
+          position: absolute;
+          margin-left: 13px;
+          margin-top:0;
+          --bs-form-check-bg-image:none;
+          border:0;
+          background: none;
+          outline:none;
+        }
+        &:checked[type=radio]::before {
+          content: "check"; /* 指定 Material Icon 的名稱 */
+          font-family: "Material Icons";
+          font-size: 16px;
+          display: inline-block;
+          color: #fff;
+        }
+      }
+  
+      .form-check-label {
+        cursor: pointer;
+        outline:none;
+        box-shadow: none;
+      }
+    }
+    .specTable {
+      th{
+        border:1px solid var(--gray2);
+        color:var(--gray4);
+        text-align: center;
+      }
+      td {
+        border:1px solid var(--gray2);
+        color:var(--secondaryDark);
+      }
+    }
+  }
+} 
+
+
+@media(max-width: 767px){ 
+  .contentAll { 
+    padding-top:66px;
+  } 
+}
+
+
+
+
+
+
+  
+
+
+
+/*--product page--*/
+
+
