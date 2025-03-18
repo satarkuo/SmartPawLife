@@ -29,6 +29,8 @@ const AdminProduct = () => {
         imageUrl:'',
         imagesUrl:[''], //預設值帶入一個空值，才能顯示第一個input新增圖片
         is_enabled: false,
+        is_hottest: false,
+        is_newest: false,
         origin_price:'',
         price: '',
         unit: '',
@@ -133,7 +135,24 @@ const AdminProduct = () => {
                                     <td><span className="textBody3">{product.num}</span></td>
                                     <td>{product.category}</td>
                                     <td><img src={product.imageUrl} width="80" className="rounded-3" /></td>
-                                    <td>{product.title}</td>
+                                    <td>
+                                        {product.title}
+                                        <span><br/>
+                                            {product.is_newest && 
+                                                <span className="d-inline-flex align-items-center textBody3 text-info me-2">
+                                                    <span className="material-icons textBody2 text-info">verified</span>
+                                                    新品報到
+                                                </span>
+                                                
+                                            }
+                                            {product.is_hottest && 
+                                                <span className="d-inline-flex align-items-center textBody3 text-danger me-2">
+                                                    <span className="material-icons textBody2 text-danger">local_fire_department</span>
+                                                    冠軍排行
+                                                </span>
+                                            }
+                                        </span>
+                                    </td>
                                     <td>{product.origin_price.toLocaleString()}</td>
                                     <td>{product.price.toLocaleString()}</td>
                                     <td className="text-center">

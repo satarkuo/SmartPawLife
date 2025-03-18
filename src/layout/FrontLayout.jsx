@@ -7,6 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCartData } from '../redux/cartSlice';
 import { ToastAlert } from '../utils/sweetAlert';
 
+import fb from '../assets/img/front/icon-fb.svg';
+import ig from '../assets/img/front/icon-ig.svg';
+import line from '../assets/img/front/icon-line.svg';
+
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -17,12 +22,17 @@ const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const routesNav = [
     {path: '/', name: '首頁'},
-    {path: '/productList', name: '智能產品'},
+    {path: '/productList/all', name: '智能產品'},
     {path: '/about', name: '關於SmartPaw Life'},
 ]
 const routesLinks = [
     {path: '/cart', name: '購物車', icon: 'shopping_cart', newTab: false},
     {path: '/login', name: '登入管理', icon: 'person', newTab: true}
+]
+const routesSocialMediaLinks = [
+    {path: '/', name: 'FB', icon: fb, newTab: true},
+    {path: '/', name: 'IG', icon: ig, newTab: true},
+    {path: '/', name: 'LINE', icon: line, newTab: true}
 ]
 
 const FrontLayout = () => {
@@ -123,6 +133,50 @@ const FrontLayout = () => {
         <div className="contentAll">
             <Outlet />
         </div>
+
+        <footer className="frontFooter bg-wave bg-wave4">
+            <div className='container'>
+                <div className='row g-3 g-lg-5'>
+                    <div className='col-lg-3 text-center text-lg-start'>
+                        <Link to="/" className="navbar-brand" href="#">
+                            <img src={logoHeader} alt="logo"/>
+                        </Link>
+                    </div>
+                    <div className='col-lg-6'>
+                        <ul className="nav navbar-nav d-flex flex-md-row justify-content-center gap-3">
+                            {routesNav.map( route => (
+                                <li className="nav-item text-center" key={route.path}>
+                                    <Link to={route.path} 
+                                        className="nav-link px-2"
+                                        onClick={toggleNavbar}
+                                        >{route.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className='col-lg-3'>
+                        <ul className="nav navbar-nav d-flex flex-row justify-content-center justify-content-lg-end gap-3">
+                            {routesSocialMediaLinks.map( route => (
+                                <li className="nav-item text-center" key={route.name}>
+                                    <Link to={route.path} 
+                                        className="nav-link p-0 d-flex justify-content-center align-items-center"
+                                        style={{ width:'24px', height: '24px'}}
+                                        >
+                                        <img src={route.icon} />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>   
+                    <div className='col'>
+                        <p className='textBody3 text-center copyright'>
+                            SmartPaw Life股份有限公司：100 台北市中正區重慶南路一段 122 號<br/>
+                            無商業用途且僅供作品展示 | 版權所有：© Copyright 2024 SmartPaw Life. All Rights Reserved
+                        </p>
+                    </div> 
+                </div>          
+            </div>
+        </footer>
     </>
     )
 }

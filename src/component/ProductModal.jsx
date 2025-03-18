@@ -471,7 +471,20 @@ function ProductModal ({
                                         onClick={removeColor}
                                         className="btn btn-sm btn-delete w-100 rounded-0">移除</button>
                                 )}
-                                
+                                <div className="form-check mt-3">
+                                    <input type="checkbox" name="is_newest" id="isNewest"  
+                                        checked={tempModalData.is_newest || false}
+                                        onChange={handleModalInputChange}
+                                        className="form-check-input" />
+                                    <label className="form-check-label" htmlFor="isNewest">設為新品報到</label>
+                                </div>
+                                <div className="form-check mt-3">
+                                    <input type="checkbox" name="is_hottest" id="isHottest"  
+                                        checked={tempModalData.is_hottest || false}
+                                        onChange={handleModalInputChange}
+                                        className="form-check-input" />
+                                    <label className="form-check-label" htmlFor="isHottest">設為冠軍排行</label>
+                                </div>                                
                                 <div className="form-check mt-3">
                                     <input type="checkbox" name="is_enabled" id="isEnabled"  
                                         checked={tempModalData.is_enabled}

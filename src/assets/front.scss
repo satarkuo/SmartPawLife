@@ -1,11 +1,8 @@
-
-
-
-
 header.frontHeader {
-    background-color: var(--white);
+    background-color: var(--gray0);
     padding: 1rem 0;
 
+    .navbar-nav a.nav-link:hover,
     .navbar-nav a.nav-link.active { color:var(--primaryDefault)}
 }
 
@@ -29,7 +26,7 @@ header.frontHeader {
     overflow: hidden;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);;
     padding:80px 40px 40px;
-    background-color: var(--white);
+    background-color: var(--gray0);
     opacity:0;
     transition-duration: 0.3s;
 
@@ -47,7 +44,21 @@ header.frontHeader {
 }
 
 .contentAll { 
+  min-height: 80vh;
   padding-top:98px;
+  padding-bottom:40px;
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('img/front/bg-wave4.png');
+  background-color: var(--gray0);
+
+  @media(max-width: 767px){ 
+    & { 
+      background-size: 100% 24px;
+      padding-top:66px;
+    } 
+  }
 
   //products spec - color
   .colorSquare {
@@ -58,7 +69,7 @@ header.frontHeader {
     margin: 0 auto 4px;
   }
 
-  //swiper style
+  //swiper style for contentAll
   .swiper-button-prev, 
   .swiper-button-next { 
     color: var(--primaryDefault)
@@ -74,11 +85,15 @@ header.frontHeader {
     opacity:1 ; 
 
     &-active { 
+      width:16px;
+      height:16px;
       background:var(--primaryDark) ; 
+      border:2px solid var(--primaryDark);
+      margin-bottom:-2px!important;
     }
   }
 
-  //title style
+  //title style for contentAll
   .titleUnderline { 
     position: relative;
     padding:0 16px;
@@ -99,124 +114,465 @@ header.frontHeader {
       position: relative;
       z-index: 3;
     }
+  }  
+
+  //breadcrumb for contentAll
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap:4px;
+    margin:24px 0 48px;
+
+    @media (max-width:640px) {
+      & {
+        margin:16px 0 24px;
+      }
+    }
+
+    a.breadLink {
+      display: flex;
+      align-items: center;
+      color: var(--secondaryDark);
+
+      &:hover {
+        color: var(--primaryDefault);
+      }
+
+      .material-icons-outlined:after,
+      &:hover .material-icons-outlined:after {
+        display: inline-block;
+        content:'keyboard_arrow_right';
+        width:24px;
+        height: 24px;
+        color: var(--secondaryDark);
+      }
+
+      &:last-child {
+        color:var(--primaryDark)
+      }
+    } 
   }
 
-  //---pageStyle ---- Home.jsx 首頁
-  .homePage {
-    //swiper  - Home MainBanner
-    .swiperBanner {
-      position: relative;
+  .productCard {
+    display: flex;
+    flex-direction: column;
+    height:100%;
+    gap: 12px;
+    box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background-color: var(--white);
+    overflow: hidden;
 
-      .detail {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color:var(--gray0);
-        display:flex;
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      padding:0 12px;
+      gap:4px;
+
+      .card-title {
+        color: var(--secondaryDark)
+      }
+      .card-text {
+        color: var(--gray3)
+      }
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      padding:0 12px 12px;
+    }
+
+  }
+} //end of contentAll
+
+//---pageStyle ---- Home.jsx 首頁
+section.homePage {
+  //swiper  - Home MainBanner
+  .swiperBanner {
+    position: relative;
+
+    .detail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color:var(--gray0);
+      display:flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .mainTitle {
+        display: flex;
         flex-direction: column;
         gap: 8px;
-      }
-    }
 
-    @media ( max-width:540px ) {
-      .swiperBanner .detail {
-        bottom:5%;
-        top:auto;
-        transform: translate(-50%, -5%);
-    
-        .h5 { font-size: 1.75rem; }
-        .h6 { font-size: 1.25rem; }
+        p { margin:0 }
       }
-    }
 
-    //swiper  - Home product swiper
-    //限時優惠
-    @media(max-width: 767px){
-      .swiperRWD {
-        padding-right:20%;
+      .searchBar {
+        max-width: 568px;
+        display: flex;
+
+        .input {
+          border-radius: 8px 0 0 8px;
+          border-right:0;
+        }
+        .btn {
+          display: flex;
+          align-content: center;
+          border-radius:0 8px 8px 0;
+          padding:12px;
+        }
       }
     }
-  
-    //bg-wave
-    .bg-wave {
-      background-position: top left;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    @media(max-width: 767px){ 
-      .bg-wave { 
-        background-size: 100% 24px;
-      } 
-    }
-    .bg-wave1 { background-image: url('img/front/bg-wave1.png'); }
-    .bg-wave2 { background-image: url('img/front/bg-wave2.png'); }
-    
   }
 
-  //---pageStyle ---- productDetail.jsx 單一產品介紹頁
-  section.productDetail {
-    .checkedStyle {
-      .form-check-input {
-        cursor: pointer;
-        outline:none;
-        box-shadow: none;
+  @media ( max-width:540px ) {
+    .swiperBanner .detail {
+      bottom:8%;
+      top:auto;
+      transform: translate(-50%, -5%);
+    }
+  }
+
+  //swiper  - Home product swiper
+  //限時優惠
+  @media(max-width: 767px){
+    .discountSwiper {
+      padding-right:20%;
+    }
+  }
+
+  //bg-wave
+  .bg-wave {
+    background-position: top left;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  @media(max-width: 767px){ 
+    .bg-wave { 
+      background-size: 100% 24px;
+    } 
+  }
+  .bg-wave1 { background-image: url('img/front/bg-wave1.png'); }
+  .bg-wave2 { background-image: url('img/front/bg-wave2.png'); }
   
-        &:checked[type=radio] {
-          display: block !important;
-          position: absolute;
-          margin-left: 13px;
-          margin-top:0;
-          --bs-form-check-bg-image:none;
-          border:0;
-          background: none;
-          outline:none;
-        }
-        &:checked[type=radio]::before {
-          content: "check"; /* 指定 Material Icon 的名稱 */
-          font-family: "Material Icons";
-          font-size: 16px;
-          display: inline-block;
-          color: #fff;
-        }
-      }
-  
-      .form-check-label {
-        cursor: pointer;
-        outline:none;
-        box-shadow: none;
+}//end of homePage
+
+//---pageStyle ---- ProductLayout.jsx 產品Layout
+section.productListPage {
+  background-color: var(--gray0);
+
+  .swiperBanner {
+    position: relative;
+
+    .detail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color:var(--gray0);
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .mobileMaxWidth {
+        max-width: 230px;
+        margin:0 auto;
       }
     }
-    .specTable {
-      th{
-        border:1px solid var(--gray2);
-        color:var(--gray4);
+  }
+  @media ( max-width:767px ) {
+    .categoryNavRWD {
+      overflow-x: auto;  /* 啟用水平滾動 */
+      white-space: nowrap; /* 防止換行 */
+      -webkit-overflow-scrolling: touch; /* 讓手機滑動更流暢 */
+
+      &::-webkit-scrollbar {
+        display: none; /* 隱藏滾動條 */
+      }
+    }
+  }
+  ul.categoryNav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width:200px;
+    margin-bottom: 40px;
+
+    @media ( max-width:767px ) {
+      & {
+        max-width:none;
+        display: flex;
+        flex-direction: row;
+        margin:20px 0 40px;
+
+      }
+    }
+
+    button.categoryBtn {
+      display: flex;
+      width: 100%;
+      align-content: center;
+      gap:12px;
+      padding:12px;
+      color:var(--primaryDefault);
+      background-color: var(--gray0);
+      border-radius: 12px;
+      @media ( max-width:767px ) {
+        & {
+          min-width:126px;
+  
+        }
+      }
+
+      &.active,
+      &:hover {
+        background-color: var(--primaryPestel);
+        border:0;
+      }
+    }
+  }
+
+  .searchBar {
+    max-width: 200px;
+    display: flex;
+
+    @media ( max-width:767px ) {
+      & {
+        max-width: 100%;
+      }
+    }
+
+    .input {
+      border-radius: 8px;
+    }
+    &.active .input {
+      border-radius: 8px 0 0 8px;
+      border-right:0;
+    }
+    .btn {
+      display: none;
+      align-content: center;
+      border-radius:0 8px 8px 0;
+      padding:8px;
+      opacity: 0;
+    }
+    &.active .btn {
+      display: flex;
+      opacity: 1;
+    }
+  }
+  
+}//end of productList
+
+//---pageStyle ---- ProductDetail.jsx 單一產品介紹頁
+section.productDetail {
+  .checkedStyle {
+    .form-check-input {
+      cursor: pointer;
+      outline:none;
+      box-shadow: none;
+
+      &:checked[type=radio] {
+        display: block !important;
+        position: absolute;
+        margin-left: 13px;
+        margin-top:0;
+        --bs-form-check-bg-image:none;
+        border:0;
+        background: none;
+        outline:none;
+      }
+      &:checked[type=radio]::before {
+        content: "check"; //Material Icon
+        font-family: "Material Icons";
+        font-size: 16px;
+        display: inline-block;
+        color: #fff;
+      }
+    }
+
+    .form-check-label {
+      cursor: pointer;
+      outline:none;
+      box-shadow: none;
+    }
+  }
+  .specTable {
+    th{
+      border:1px solid var(--gray2);
+      color:var(--gray4);
+      text-align: center;
+    }
+    td {
+      border:1px solid var(--gray2);
+      color:var(--secondaryDark);
+    }
+  }
+}//end of productDetail
+
+//---pageStyle ---- About.jsx 關於我們
+section.aboutPage {
+  background-color: var(--gray0);
+  //swiper  - aboutPage Banner
+  .swiperBanner {
+    position: relative;
+
+    .detail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color:var(--gray0);
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  ul.timeLine {
+    padding:36px;
+    background-color: var(--white);
+    border:8px;
+    box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.04);
+
+    @media ( max-width:640px ) {
+      & {
+        padding:12px;
+      }
+    }
+
+  
+    li {
+      position: relative;
+      display: flex;
+      gap:24px;
+      //align-items: center;
+      padding-bottom: 36px;
+      //overflow: hidden;
+
+      
+      &:after {
+        display: inline-block;
+        content: "";
+        width: 1px;
+        height: 100%;
+        border-left: 1px solid var(--primaryLight);
+        position: absolute;
+        left: 112px;
+        top: 55%;
+      }
+      &:last-of-type:after {
+        display: none;
+      }
+      @media ( max-width:640px ) {
+        & {
+          gap:16px;
+        }
+        &:after {
+          left: 104px;
+          top: 55%;
+        }
+      }
+
+      .timeLineYear {
+        width: 64px;
+        min-width:64px;
         text-align: center;
+        align-self: center;
       }
-      td {
-        border:1px solid var(--gray2);
-        color:var(--secondaryDark);
+      .con { align-self: center; }
+      .line-box {
+        display: flex;
+        align-content: center;
+        
+        .iconBox {
+        
+          display: inline-flex;
+          justify-content: center;
+          align-self: center;
+          width: 48px;
+          min-width:48px;
+          height: 48px;
+          border-radius: 100%;
+          background-color: var(--primaryPestel);
+          color:var(--primaryDark);
+  
+          
+        }
+
       }
+      
+      
     }
+    
   }
-} 
+}//end of aboutPage
 
 
-@media(max-width: 767px){ 
-  .contentAll { 
-    padding-top:66px;
-  } 
+
+
+footer.frontFooter {
+  padding:48px 0;
+  background-color: var(--primaryPestel);
+
+  .navbar-nav a.nav-link:hover { color:var(--primaryDefault)}
+
+  & .copyright {
+    color: var(--gray2)
+  }
 }
 
 
+.product-gallery {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-direction: row;
 
-
-
-
+  .main-swiper {
+    flex: 1;
+    width: 550px;
+    height:500px;
   
+    .main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .thumbs-swiper {
+    width: 150px;
+    height:500px;
+    display: flex;
+    flex-direction: column;
+  
+    .thumb-image {
+      width: 100%;
+      cursor: pointer;
+      opacity:0.65;
+    }
+    .swiper-slide-thumb-active .thumb-image {
+      opacity: 1;
+    }
+  }
+}
 
+@media (max-width: 1399px) {
+  .product-gallery {
+    flex-direction: column;
 
-
-/*--product page--*/
+    .main-swiper {
+      max-width:100%
+    }
+    .thumbs-swiper {
+      width: 100%;
+      height:auto;
+      flex-direction: row;
+      overflow: hidden;
+    }
+  }
+}
 
 

@@ -179,7 +179,7 @@ const Cart = () => {
 
     return (
         <>
-            <div className="container py-5">
+            <div className="container pb-5 pt-0 pt-md-5">
                 <section className="cartList py-5 mb-5" id="cartList">
                     <div className="d-flex ">
                         <h1 className="h2 mt-0 text-primary flex-fill">購物車</h1>

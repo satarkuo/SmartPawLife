@@ -36,6 +36,9 @@
     --accessoryBlue:#7682BD;
     --accessoryWhite:#EDEDE6;
 }
+  .bg-primaryPestel {
+    background-color: var(--primaryPestel);
+  }
 html, body {
   height: 100%;
   width: 100%;
@@ -320,4 +323,7 @@ textarea.textarea {
     padding: 36px 24px;
     line-height: 180%;
   }
+}
+.object-fit {
+    object-fit:cover;
 }

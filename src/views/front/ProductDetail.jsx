@@ -102,7 +102,7 @@ const ProductDetail = () => {
 
     return (<>
         <section className="productDetail py-5 mb-5">
-            <div className="container py-5">
+            <div className="container pb-5 pt-0 pt-md-5">
                 <h1>產品明細</h1>
                 <div className="row">
                     <div className="col-md-4">
@@ -215,7 +215,7 @@ const ProductDetail = () => {
                             <table className="table specTable">
                                 <tbody>
                                     <tr>
-                                        <th>材質</th>
+                                        <th width='60px'>材質</th>
                                         <td>{tempProduct.material}</td>
                                     </tr>
                                     <tr>

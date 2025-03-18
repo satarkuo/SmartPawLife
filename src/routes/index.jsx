@@ -12,6 +12,8 @@ import ProductDetail from "../views/front/ProductDetail";
 import About from "../views/front/About";
 import AdminCoupon from "../views/admin/AdminCoupon";
 import AdminSingleOrder from "../views/admin/AdminSingleOrder";
+import SearchProductResult from "../views/front/SearchProductResult";
+import ProductLayout from "../layout/ProductLayout";
 
 const router = createHashRouter([
     {
@@ -24,7 +26,17 @@ const router = createHashRouter([
             },
             {
                 path: 'productList',
-                element: <ProductList />
+                element: <ProductLayout />,
+                children: [
+                    {
+                        path: "all",
+                        element: <ProductList />
+                    },
+                    {
+                        path: "search/:search",
+                        element: <SearchProductResult />
+                    }
+                ]
             },
             {
                 path: 'productList/:id',
