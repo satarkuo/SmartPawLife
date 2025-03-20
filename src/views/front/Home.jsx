@@ -11,6 +11,7 @@ import useScreenSize from '../../hooks/useScreenSize';
 import swiperBannerImages from '../../data/swiperBannerImages';
 import { setSearchValue, setSingleFilter } from '../../redux/searchSlice';
 import { setAllProducts } from '../../redux/productSlice';
+import ProductCard from '../../component/ProductCard';
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
@@ -24,7 +25,6 @@ const Home = () => {
     const swiperRef = useRef(null);
     const pauseSwiper = () => swiperRef.current?.autoplay.stop(); //暫停
     const resumeSwiper = () => swiperRef.current?.autoplay.start(); //恢復
-
 
     //取得商品資料
     const dispatch = useDispatch();
@@ -59,12 +59,10 @@ const Home = () => {
         }
     }
 
-    //熱門產品
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    //Swiper 產品圖：熱門產品、新品
+    const [hottestThumbsSwiper, setHottestThumbsSwiper] = useState(null);
     const [newestThumbsSwiper, setNewestThumbsSwiper] = useState(null);
 
-    //RTK取得：全部產品列表
-    //const allProducts = useSelector(state => state.product.allProducts)
     //RTK取得：搜尋關鍵字
     const searchValue = useSelector(state => state.search.searchValue)
 
@@ -164,33 +162,11 @@ const Home = () => {
                     >
                     {cheaperProducts?.map((product) => (
                         <SwiperSlide className="mb-5" key={product.id}>
-                            <Link to={`/productList/${product.id}`} 
-                                onClick={() => window.scrollTo(0, 0)}
-                                className="cardLink h-100 w-100">
-                                <div className="card rounded-3 h-100 overflow-hidden border-0" >
-                                    <img className="img-fluid round-top"
-                                        src={product.imageUrl}
-                                        alt={product.title}
-                                    />
-                                    <div className="card-body">
-                                        <p className="card-title h5">{product.title}</p>
-                                        <p className="card-text textBody2 text-body-tertiary " 
-                                            style={{height: '50px'}}>
-                                            {product.description}
-                                        </p>
-                                    </div>
-                                    <div className="card-footer bg-white border-0 d-flex justify-content-between">
-                                        <div className="h5 text-primary m-0">$ {product.price.toLocaleString()}</div>
-                                        { product.origin_price > product.price && 
-                                            <del className="text-body-tertiary align-self-center">$ {product.origin_price.toLocaleString()}</del>}
-                                    </div>
-                                </div>
-                            </Link>
+                            <ProductCard product={product} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
                 <div className='text-end'>
-                    
                     <button type="text" 
                         className="btn btn-primary d-inline-flex"
                         onClick={() => handleButtonFilterProducts('is_discounted')}>
@@ -201,7 +177,7 @@ const Home = () => {
             </div>
         </div>
         {hottestProduct?.imagesUrl?.length >= 1 && (
-            <div className="bg-wave bg-wave2 py-5">
+            <div className="bg-wave bg-wave2 pt-5">
                 <div className="container pb-5 pt-0 pt-md-5">
                     <h2 className={`${isMobile ? 'h3' : 'h2'} text-center py-5`}>
                         <span className="titleUnderline"><span>熱門產品</span></span>
@@ -216,23 +192,23 @@ const Home = () => {
                                     }}
                                     spaceBetween={0}
                                     navigation={true}
-                                    thumbs={{ swiper: thumbsSwiper }}
+                                    thumbs={{ swiper: hottestThumbsSwiper }}
                                     modules={[FreeMode, Navigation, Thumbs]}
                                     className='main-swiper rounded-3'
                                     //className="mySwiper2"
                                 >
                                     <SwiperSlide>
-                                        <img src={hottestProduct.imageUrl} className="main-image rounded-3"/>
+                                        <img src={hottestProduct.imageUrl} className="main-image rounded-3" alt={hottestProduct.title}/>
                                     </SwiperSlide>
                                     {hottestProduct.imagesUrl.map(img => (
                                         <SwiperSlide key={img}>
-                                            <img src={img} className="main-image rounded-3"/>
+                                            <img src={img} className="main-image rounded-3" alt={hottestProduct.title}/>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
                                 <Swiper
-                                    onSwiper={setThumbsSwiper}
-                                    spaceBetween={24}
+                                    onSwiper={setHottestThumbsSwiper}
+                                    
                                     slidesPerView={3}
                                     watchSlidesProgress={true}
                                     modules={[Navigation, Thumbs]}
@@ -241,20 +217,21 @@ const Home = () => {
                                         1400: {
                                             direction: "vertical", // 桌機版: 右側垂直排列
                                             slidesPerView: 3,
+                                            spaceBetween: 24
                                         },
                                         0: {
                                             direction: "horizontal", // 手機版: 下方水平排列
                                             slidesPerView: 3,
+                                            spaceBetween: 12
                                         },
                                     }}
-                                    //About.jsxstyle={{width: '80px'}}
                                 >
                                     <SwiperSlide >
-                                        <img src={hottestProduct.imageUrl} className="thumb-image rounded-3"/>
+                                        <img src={hottestProduct.imageUrl} className="thumb-image rounded-3" alt={hottestProduct.title}/>
                                     </SwiperSlide>
                                     {hottestProduct.imagesUrl.map(img => (
                                         <SwiperSlide key={img}>
-                                            <img src={img} className="thumb-image rounded-3"/>
+                                            <img src={img} className="thumb-image rounded-3" alt={hottestProduct.title}/>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
@@ -304,17 +281,16 @@ const Home = () => {
                                     //className="mySwiper2"
                                 >
                                     <SwiperSlide>
-                                        <img src={newestProduct.imageUrl} className="main-image rounded-3"/>
+                                        <img src={newestProduct.imageUrl} className="main-image rounded-3" alt={newestProduct.title}/>
                                     </SwiperSlide>
                                     {newestProduct.imagesUrl.map(img => (
                                         <SwiperSlide key={img}>
-                                            <img src={img} className="main-image rounded-3"/>
+                                            <img src={img} className="main-image rounded-3" alt={newestProduct.title}/>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
                                 <Swiper
                                     onSwiper={setNewestThumbsSwiper}
-                                    spaceBetween={24}
                                     slidesPerView={3}
                                     watchSlidesProgress={true}
                                     modules={[Navigation, Thumbs]}
@@ -323,20 +299,21 @@ const Home = () => {
                                         1400: {
                                             direction: "vertical", // 桌機版: 右側垂直排列
                                             slidesPerView: 3,
+                                            spaceBetween: 24
                                         },
                                         0: {
                                             direction: "horizontal", // 手機版: 下方水平排列
                                             slidesPerView: 3,
+                                            spaceBetween: 12
                                         },
                                     }}
-                                    //About.jsxstyle={{width: '80px'}}
                                 >
                                     <SwiperSlide >
-                                        <img src={newestProduct.imageUrl} className="thumb-image rounded-3"/>
+                                        <img src={newestProduct.imageUrl} className="thumb-image rounded-3" alt={newestProduct.title}/>
                                     </SwiperSlide>
                                     {newestProduct.imagesUrl.map(img => (
                                         <SwiperSlide key={img}>
-                                            <img src={img} className="thumb-image rounded-3"/>
+                                            <img src={img} className="thumb-image rounded-3" alt={newestProduct.title}/>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>

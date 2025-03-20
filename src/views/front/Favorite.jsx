@@ -1,44 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import useScreenSize from "../../hooks/useScreenSize";
+import productInfoData from "../../data/productInfoData";
 import { ToastAlert } from '../../utils/sweetAlert';
 import ReactLoading from "react-loading";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../redux/productSlice";
-import useScreenSize from '../../hooks/useScreenSize';
-import productInfoData from "../../data/productInfoData";
-
-import PaginationBar from '../../component/Pagination';
+import { setAllProducts } from "../../redux/productSlice";
 import ProductCard from "../../component/ProductCard";
-
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
-
-const ProductList = () => {
+const Favorite = () => {
     //RWD:自訂hook
     const { screenWidth } = useScreenSize();
     const isMobile = screenWidth < 640; // 螢幕寬 < 640，返回true，否則返回false
-
-    const dispatch = useDispatch();
+    //RTK取得：完整產品列表、加入收藏ID列表、收藏清單
+    const allProducts = useSelector(state => state.product.allProducts)
+    const favoriteList = useSelector(state => state.favorite.favoriteList);
+    const favoriteProducts = allProducts.filter( product => favoriteList[product.id])
 
     //全螢幕Loading
     const [isScreenLoading, setIsScreenLoading] = useState(false); 
 
-    //頁碼邏輯
-    const [pageInfo, setPageInfo] = useState({});
-    const handlePageChange = page => {
-        getProducts(page);
-        window.scrollTo(0, 0);
-    }
-
     //取得產品資料
-    const getProducts = async (page=1) => {
+    const dispatch = useDispatch();
+    const getAllProducts = useCallback(async () => {
         setIsScreenLoading(true)
         try {
-            const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products?page=${page}`);
+            const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products/all`);
             const { products } = res.data;
-            dispatch(setProducts(products))
-            setPageInfo(res.data.pagination)
+            dispatch(setAllProducts(products))
         } catch (error) {
             ToastAlert.fire({
                 icon: "error",
@@ -48,32 +39,27 @@ const ProductList = () => {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    },[dispatch]);
 
     useEffect(() => {
-        getProducts();
-    }, []);
-
-
-    //RTK取得：搜尋產品列表
-    const products = useSelector(state => state.product.products)
+        getAllProducts();
+    }, [getAllProducts]);
 
     return (
-        <>
+        <div className="favoritePage">
             <div className="mb-5">
-                <h1 className={`${isMobile ? 'h4' : 'h3'}  mt-0 text-primary`}>{productInfoData['全部'].title}</h1>
+                <h1 className={`${isMobile ? 'h4' : 'h3'}  mt-0 text-primary`}>{productInfoData['加入收藏'].title}</h1>
                 <div className={isMobile ? 'textBody2' : 'textBody1'}>
-                    <div dangerouslySetInnerHTML={{ __html: productInfoData['全部'].content }} />
+                    <div dangerouslySetInnerHTML={{ __html: productInfoData['加入收藏'].content }} />
                 </div>
             </div>
             <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
-                {products?.map((product) => (
+                {favoriteProducts?.map((product) => (
                     <div className="col mb-5" key={product.id}>
                         <ProductCard product={product} />
                     </div>
                 ))}
             </div>
-            {pageInfo && <PaginationBar pageInfo={pageInfo} handlePageChange={handlePageChange}/>}
             {isScreenLoading && (
                 <div
                 className="d-flex justify-content-center align-items-center"
@@ -86,8 +72,7 @@ const ProductList = () => {
                     <ReactLoading type="spin" color="#fff" width="4rem" height="4rem" />
                 </div>
             )}
-            
-        </>
+        </div>
     )
 }
-export default ProductList;
+export default Favorite;

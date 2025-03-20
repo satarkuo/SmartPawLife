@@ -14,6 +14,7 @@ import AdminCoupon from "../views/admin/AdminCoupon";
 import AdminSingleOrder from "../views/admin/AdminSingleOrder";
 import SearchProductResult from "../views/front/SearchProductResult";
 import ProductLayout from "../layout/ProductLayout";
+import Favorite from "../views/front/Favorite";
 
 const router = createHashRouter([
     {
@@ -35,7 +36,11 @@ const router = createHashRouter([
                     {
                         path: "search/:search",
                         element: <SearchProductResult />
-                    }
+                    },
+                    {
+                        path: 'favorite',
+                        element: <Favorite />
+                    },
                 ]
             },
             {

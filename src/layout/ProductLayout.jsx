@@ -76,12 +76,12 @@ const ProductLayout = () => {
     //篩選條件狀態
     const [filtersData, setFiltersData] = useState(filterDefault)
     //設定篩選條件
-    const filters = {
-        category: (product) => filtersData.category !== '全部' ? product.category === filtersData.category : true,
-        is_discounted: (product) => filtersData.is_discounted ? product.origin_price > product.price : true,
-        is_newest: (product) => filtersData.is_newest ? product.is_newest : true,
-        is_hottest: (product) => filtersData.is_hottest ? product.is_hottest : true,
-    }
+    const filters = useMemo(() => ({
+            category: (product) => filtersData.category !== '全部' ? product.category === filtersData.category : true,
+            is_discounted: (product) => filtersData.is_discounted ? product.origin_price > product.price : true,
+            is_newest: (product) => filtersData.is_newest ? product.is_newest : true,
+            is_hottest: (product) => filtersData.is_hottest ? product.is_hottest : true,
+    }),[filtersData]) 
 
     //產品篩選邏輯
     const handleFilterProducts = useCallback(() => {
@@ -93,7 +93,7 @@ const ProductLayout = () => {
         ))
         dispatch(setFilterProducts(result));
         
-    },[allProducts, dispatch, filtersData])
+    },[allProducts, dispatch, filters])
 
     const handleFilterClick = (filterName) => {        
         setFiltersData({
@@ -158,7 +158,11 @@ const ProductLayout = () => {
                             首頁
                             <span className="material-icons-outlined"></span>
                         </Link>
-                        <Link className="breadLink" to='/productList'>{category}</Link>
+                        <Link className="breadLink" to='/productList'>
+                            智能產品
+                            <span className="material-icons-outlined"></span>
+                        </Link>
+                        <span className="breadLink">{category}</span>
                     </div>
                     <div className="row">
                         <div className="col-md-3">

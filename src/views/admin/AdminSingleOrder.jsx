@@ -30,7 +30,7 @@ const AdminSingleOrder = () => {
 
     useEffect(() => { 
         initOrderData();
-    },[orders])
+    },[])
 
     //暫存變更：單筆訂單資料
     const handleOrderInputChange = (e) => {

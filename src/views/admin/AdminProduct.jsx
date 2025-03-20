@@ -13,9 +13,7 @@ const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 const AdminProduct = () => {
     const [isScreenLoading, setIsScreenLoading] = useState(false); //全螢幕Loading
     const dispatch = useDispatch();
-
     
-
     //Products
     const [productsData, setProductsData] = useState([]) //所有產品資訊
     // 產品預設資料：以單層為主(增加新欄位時，方便與現有產品資料合併)
@@ -63,6 +61,7 @@ const AdminProduct = () => {
             setIsScreenLoading(false)
         }
     }
+
     useEffect(() => {
         getProductsList();
     }, [])

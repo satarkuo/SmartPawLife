@@ -22,22 +22,23 @@ export default function Toast() {
                 }, 3000)
             }
         })
-    }, [messages])
+    }, [messages, dispatch])
 
     return(<div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 2000 }}>
         {/* 將DOM元素(el)存進id */}
         {messages.map(msg => (
             <div ref={(el) => toastRefs.current[msg.id] = el} 
-                className="toast mb-2" role="alert" aria-live="assertive" aria-atomic="true" key={msg.id}>
-                <div className={`toast-header text-white`}
-                    style={{ backgroundColor: `${msg.type === 'success' ? '#47b966' : '#e04c10'}` }}>
-                    <strong className="me-auto">{msg.title}</strong>
+                className="toast mb-2 border-0" role="alert" aria-live="assertive" aria-atomic="true" key={msg.id}>
+                <div className={`toast-header text-white border-0`}
+                    style={{ backgroundColor: `${msg.type === 'success' ? '#E69270' : '#D2501B'}` }}>
+                    <strong className="me-auto"
+                        style={{color:`${msg.type === 'success' ? '#fff' : '#fff'}`}}>{msg.title}</strong>
                     <button
                         type="button"
-                        className="btn-close"
+                        className="btn bg-none text-white p-0 d-flex align-content-center"
                         data-bs-dismiss='toast'
                         aria-label="Close"
-                        ></button>
+                        ><span class="material-icons align-self-center">close</span></button>
                 </div>
                 <div className="toast-body">{msg.text}</div>
             </div>

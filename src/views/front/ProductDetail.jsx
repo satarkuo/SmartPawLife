@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import { ToastAlert } from '../../utils/sweetAlert';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCartData } from "../../redux/cartSlice";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
+import { toggleFavoriteList } from "../../redux/favoriteListSlice";
+
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const ProductDetail = () => {
     const dispatch = useDispatch({});
+    //RTK取得：收藏清單狀態 
+    const favoriteList = useSelector(state => state.favorite.favoriteList)
+    // toggle favorite
+    const toggleFavorite = (e,id) => {
+        e.preventDefault(); // 取消 a 連結
+        e.stopPropagation(); // 取消觸發 <Link> 導航行為
+        dispatch(toggleFavoriteList(id));
+    }
 
     //Loading邏輯
     const [isScreenLoading, setIsScreenLoading] = useState(false); //全螢幕Loading
@@ -41,7 +53,7 @@ const ProductDetail = () => {
         } finally {
             setIsScreenLoading(false)
         }
-    };
+    }
 
     useEffect(() => {
         getProduct();
@@ -98,44 +110,114 @@ const ProductDetail = () => {
             });
         }
     }
+    //Swiper 產品圖
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     
-
     return (<>
-        <section className="productDetail py-5 mb-5">
-            <div className="container pb-5 pt-0 pt-md-5">
-                <h1>產品明細</h1>
-                <div className="row">
-                    <div className="col-md-4">
-                        <div className="coverImg">
-                            <img
-                                src={tempProduct.imageUrl}
-                                alt={tempProduct.title}
-                                className="w-100 img-fluid rounded-3 mb-3"
-                            />
-                        </div>
-                        <div className="row row-cols-3 mb-5 g-3">
-                            {tempProduct?.imagesUrl?.map((img,index) => (
-                                <div className="col" key={index}>
-                                    {img &&
-                                        <img
-                                            src={img}
-                                            alt={tempProduct.title}
-                                            className="w-100 img-fluid rounded-3"
-                                        />
-                                    }
-                                </div>
-                            ))}
+        <section className="productDetail py-2 py-md-5 mb-5">
+            <div className="container">
+                <div className="breadcrumb">
+                    <Link className="breadLink" to='/'>
+                        首頁
+                        <span className="material-icons-outlined"></span>
+                    </Link>
+                    <Link className="breadLink" to='/productList'>
+                        智能產品
+                        <span className="material-icons-outlined"></span>
+                    </Link>
+                    <Link className="breadLink" to={`/productList/${tempProduct.category}`}>
+                        {tempProduct.category}
+                        <span className="material-icons-outlined"></span>
+                    </Link>
+                    <span className="breadLink">{tempProduct.title}</span>
+                </div>
+                <div className="d-flex flex-column flex-md-row gap-4">
+                    <div className="">
+                        <div className='productDetail-gallery'>
+                        <span className={`material-icons favoriteBtn ${favoriteList[tempProduct.id] && 'active'}`}
+                            onClick={(e) => toggleFavorite(e, tempProduct.id)}></span>
+                            <Swiper
+                                style={{
+                                '--swiper-navigation-color': '#fff',
+                                '--swiper-pagination-color': '#fff',
+                                }}
+                                spaceBetween={0}
+                                navigation={true}
+                                thumbs={{ swiper: thumbsSwiper }}
+                                modules={[FreeMode, Navigation, Thumbs]}
+                                className='main-swiper rounded-3'
+                                //className="mySwiper2"
+                            >
+                                <SwiperSlide>
+                                    <img src={tempProduct.imageUrl} className="main-image rounded-3" alt={tempProduct.title}/>
+                                </SwiperSlide>
+                                {tempProduct?.imagesUrl?.map(img => (
+                                    <SwiperSlide key={img}>
+                                        <img src={img} className="main-image rounded-3" alt={tempProduct.title}/>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                            <Swiper
+                                onSwiper={setThumbsSwiper}
+                                spaceBetween={24}
+                                slidesPerView={3}
+                                watchSlidesProgress={true}
+                                modules={[Navigation, Thumbs]}
+                                className="thumbs-swiper"
+                                breakpoints={{
+                                    1400: {
+                                        slidesPerView: 3,
+                                    },
+                                    0: {
+                                        slidesPerView: 3,
+                                    },
+                                }}
+                                //About.jsxstyle={{width: '80px'}}
+                            >
+                                <SwiperSlide >
+                                    <img src={tempProduct.imageUrl} className="thumb-image rounded-3" alt={tempProduct.title}/>
+                                </SwiperSlide>
+                                {tempProduct?.imagesUrl?.map(img => (
+                                    <SwiperSlide key={img}>
+                                        <img src={img} className="thumb-image rounded-3" alt={tempProduct.title}/>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
-                    <div className="col-md-8">
-                        <h1 className="h4">{tempProduct.title}</h1>
-                        <p className="text-body-tertiary">{tempProduct.description}</p>
-                        <p className="mb-4">
-                            <span className="h5 text-primary">$ {(tempProduct.price || 0).toLocaleString()}</span>
+                    <div className="d-flex flex-fill flex-column gap-3 gap-md-4">
+                        <div>
+                            <div className="d-flex gap-2 gap-lg-4 flex-lg-row flex-column align-content-center">
+                                <h1 className="h5 m-0 lh-1">{tempProduct.title}</h1>
+                                <div className="tagBox">
+                                    {tempProduct.is_newest && 
+                                        <span className="tag textBody3 bg-info">
+                                            <span className="material-icons textBody2">verified</span>
+                                            新品
+                                        </span>
+                                    }
+                                    {tempProduct.is_hottest && 
+                                        <span className="tag textBody3">
+                                            <span className="material-icons textBody2">local_fire_department</span>
+                                            TOP
+                                        </span>
+                                    }
+                                    {tempProduct.origin_price > tempProduct.price && 
+                                        <span className="tag textBody3 bg-primary">
+                                            <span className="material-icons textBody2">timer</span>
+                                            限時優惠
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                            <p className="textBody3 text-secondary mt-2">{tempProduct.description}</p>
+                        </div>
+                        <p>
+                            <span className="h4 text-primary">$ {(tempProduct.price || 0).toLocaleString()}</span>
                             { tempProduct.origin_price > tempProduct.price && 
-                                <del className="text-body-tertiary ms-3">$ {(tempProduct.origin_price || 0).toLocaleString()}</del>}
+                                <del className="textBody3 text-secondary ms-3">$ {(tempProduct.origin_price || 0).toLocaleString()}</del>}
                         </p>
-                        <div className='mb-3 d-flex'>
+                        <div className='d-flex'>
                             <div className='form-label mb-0 d-flex align-items-center' style={{'width':'60px'}}>顏色</div>
                             {tempProduct?.color?.map((color,index) => {
                                 return(<div className='form-check ps-0 me-3 checkedStyle' key={color.colorName}>
@@ -148,30 +230,37 @@ const ProductDetail = () => {
                                     <label className='form-check-label' htmlFor={`color-${index+1}`}>
                                         <div className="d-flex flex-column">
                                             <span className="colorSquare" style={{'backgroundColor': color.colorCode }}></span>
-                                            <small className="text-secondary">{color.colorName}</small>
+                                            <small style={{'color': color.colorName === selectedColor.colorName ? '#423A2F' : '#7F7A7A' }}>{color.colorName}</small>
                                         </div>
                                     </label>
                                 </div>)
                             })}
                         </div>
                         
-                        <div className="input-group align-items-center mb-4">
+                        <div className="input-group qtySelectBox">
                             <label htmlFor="qtySelect" style={{'width':'60px'}}>數量</label>
-                            <select
-                                value={qtySelect}
-                                onChange={(e) => setQtySelect(e.target.value)}
-                                id="qtySelect"
-                                className="form-select d-inline-block rounded-3"
-                                style={{'width':'240px', 'flex':'none'}}
+                            <div className="d-flex flex-fill align-items-center">
+                                <button
+                                    type="button"
+                                    className="btn btn-primary-outline btn-increase"
+                                    disabled={qtySelect <= 1}
+                                    onClick={()=> setQtySelect(qtySelect-1)}
                                 >
-                                {Array.from({ length: 10 }).map((_, index) => (
-                                    <option key={index} value={index + 1}>
-                                        {index + 1}
-                                    </option>
-                                ))}
-                            </select>
+                                    <span className="material-icons align-content-center fs-4">remove</span>
+                                </button>
+                                <span className="qtyValue w-md-100">{qtySelect}</span>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary-outline btn-decrease"
+                                    disabled={qtySelect >= 10}
+                                    onClick={()=> setQtySelect(qtySelect+1)}
+                                >
+                                    <span className="material-icons align-content-center fs-4">add</span>     
+                                </button>
+                            </div>
                         </div>
-                        <div className="btn-group d-flex" style={{'width':'300px'}}>
+                        <hr />
+                        <div className="d-flex gap-md-4 gap-3">
                             <button type="button" disabled={isLoading} 
                                 className="btn btn-primary-outline flex-fill d-flex align-items-center justify-content-center gap-2" 
                                 onClick={() => addCardItem(tempProduct.id, qtySelect, selectedColor, 'checkout')}>
@@ -192,7 +281,7 @@ const ProductDetail = () => {
                     </div>
                 </div>
                 <div className="tabBox">
-                    <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <ul className="nav nav-pills mb-4" id="pills-tab" role="tablist">
                         <li className="nav-item" role="presentation">
                             <button className="nav-link active" id="pills-content-tab" data-bs-toggle="pill" data-bs-target="#pills-content" type="button" role="tab" aria-controls="pills-content" aria-selected="true">產品說明</button>
                         </li>

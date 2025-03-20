@@ -4,24 +4,21 @@ const initialState = {
     selectedFilters: {
         category: '全部', //分類
         is_discounted: false, //限時搶購
-        //is_ranking: false, //冠軍排行
         is_newest: false, //新品報到
-        is_hottest: false, //熱門商品
+        is_hottest: false, //熱門商品、冠軍排行
     },
-    singleFilter: ''
+    singleFilter: '', //首頁：單一分類filter條件
 }
 const searchSlice = createSlice({
     name:'search',
     initialState,
     reducers: {
         setSearchValue: (state, action) => {
-            state.searchValue = action.payload;
-            
+            state.searchValue = action.payload;            
         },
         setSelectedFilters: (state, action) => { //產品filter條件
             state.selectedFilters.category = action.payload.category;
             state.selectedFilters.is_discounted = action.payload.is_discounted;
-            //state.selectedFilters.is_ranking = action.payload.is_ranking;
             state.selectedFilters.is_newest = action.payload.is_newest;
             state.selectedFilters.is_hottest = action.payload.is_hottest;
         },
@@ -35,7 +32,7 @@ const searchSlice = createSlice({
                 is_newest: false, 
                 is_hottest: false, 
             }
-        }
+        },
     }
 })
 export const { setSearchValue, setSelectedFilters, setSingleFilter, resetSelectedFilters } = searchSlice.actions;

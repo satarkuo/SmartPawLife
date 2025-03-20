@@ -43,6 +43,7 @@ const AdminOrder = () => {
             setIsScreenLoading(false)
         }
     }
+
     useEffect(() => {
         getOrdersList()
     },[])

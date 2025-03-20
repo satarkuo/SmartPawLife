@@ -26,6 +26,7 @@ const routesNav = [
     {path: '/about', name: '關於SmartPaw Life'},
 ]
 const routesLinks = [
+    {path: '/productList/favorite', name: '收藏清單', icon: 'favorite', newTab: false},
     {path: '/cart', name: '購物車', icon: 'shopping_cart', newTab: false},
     {path: '/login', name: '登入管理', icon: 'person', newTab: true}
 ]
@@ -59,12 +60,14 @@ const FrontLayout = () => {
             });
         }
     }
+
     useEffect(() => {
         getCartList();
     },[])
 
-    //取得儲存的購物車
+    //取得儲存的購物車、收藏清單
     const carts = useSelector(state => state.cart.carts)
+    const favoriteList = useSelector(state => state.favorite.favoriteList);
 
     //scroll to top
     const { pathname, search } = useLocation();
@@ -80,7 +83,7 @@ const FrontLayout = () => {
         <header className="frontHeader fixed-top">
             <nav className="navbar navbar-expand-md mainNav">
                 <div className="container">
-                    <Link to="/" className="navbar-brand me-5" href="#">
+                    <Link to="/" className="navbar-brand" href="#">
                         <img src={logoHeader} alt="logo"/>
                     </Link>
                     <span className="navbar-toggler border-0"  onClick={toggleNavbar} >
@@ -107,7 +110,6 @@ const FrontLayout = () => {
                                         {...(route.newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})} >
                                         {route.name === '購物車' ? (
                                             <div className="position-relative">
-                                                <i className="fas fa-shopping-cart"></i>
                                                 <span
                                                     className="position-absolute badge text-bg-primary rounded-pill text-white"
                                                     style={{
@@ -115,6 +117,17 @@ const FrontLayout = () => {
                                                     left: "10px",
                                                     }}
                                                 >{carts.length}</span>
+                                            </div>
+                                        ): ''}
+                                        {route.name === '收藏清單' ? (
+                                            <div className="position-relative">
+                                                <span
+                                                    className="position-absolute badge text-bg-primary rounded-pill text-white"
+                                                    style={{
+                                                    bottom: "6px",
+                                                    left: "10px",
+                                                    }}
+                                                >{Object.keys(favoriteList).filter(id => favoriteList[id] === true).length}</span>
                                             </div>
                                         ): ''}
                                         <span className="material-icons align-content-center me-1 fs-5 ">{route.icon} </span>
@@ -148,7 +161,6 @@ const FrontLayout = () => {
                                 <li className="nav-item text-center" key={route.path}>
                                     <Link to={route.path} 
                                         className="nav-link px-2"
-                                        onClick={toggleNavbar}
                                         >{route.name}</Link>
                                 </li>
                             ))}
