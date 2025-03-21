@@ -44,6 +44,7 @@ const Favorite = () => {
     useEffect(() => {
         getAllProducts();
     }, [getAllProducts]);
+    
 
     return (
         <div className="favoritePage">

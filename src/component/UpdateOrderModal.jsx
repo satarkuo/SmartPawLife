@@ -57,7 +57,6 @@ function UpdateOrderModal({
             }))
             setIsChangeData(true)
         } catch (error) {
-            console.log(error)
             dispatch(pushMessage({
                 title: '更新訂單失敗',
                 text: error.response.data.message,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ReactLoading from "react-loading";
@@ -6,14 +6,22 @@ import { ToastAlert } from '../../utils/sweetAlert';
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartData } from "../../redux/cartSlice";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
+import { A11y, Navigation, Pagination, Scrollbar, Autoplay,FreeMode, Thumbs } from 'swiper/modules';
 import { toggleFavoriteList } from "../../redux/favoriteListSlice";
+import useScreenSize from "../../hooks/useScreenSize";
+import { pushMessage } from "../../redux/toastSlice";
+import ProductCard from "../../component/ProductCard";
 
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const ProductDetail = () => {
     const dispatch = useDispatch({});
+
+    //swiper RWD:自訂hook
+    const { screenWidth } = useScreenSize();
+    const isMobile = screenWidth < 640; // 螢幕寬 < 640，返回true，否則返回false
+    
     //RTK取得：收藏清單狀態 
     const favoriteList = useSelector(state => state.favorite.favoriteList)
     // toggle favorite
@@ -39,7 +47,7 @@ const ProductDetail = () => {
     const {id: product_id} = useParams();
 
     //取得產品資料
-    const getProduct = async () => {
+    const getProduct = useCallback(async () => {
         setIsScreenLoading(true)
         try {
             const res = await axios.get(`${BASE_URL}/api/${API_PATH}/product/${product_id}`);
@@ -53,11 +61,11 @@ const ProductDetail = () => {
         } finally {
             setIsScreenLoading(false)
         }
-    }
+    },[product_id])
 
     useEffect(() => {
         getProduct();
-    }, []);
+    }, [getProduct]);
 
     // 加入購物車、直接購買
     const navigate = useNavigate();
@@ -112,6 +120,25 @@ const ProductDetail = () => {
     }
     //Swiper 產品圖
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+    const [hottestProducts, setHottestProduct] = useState([]); //限時優惠商品list
+    useEffect(() => {
+        getAllProducts();
+    },[])
+
+    const getAllProducts = async() => {
+        try {
+            const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products/all`);
+            const hottest = res.data.products.filter(item => item.is_hottest)
+            setHottestProduct(hottest)
+        } catch (error) {
+            dispatch(pushMessage({
+                title: '產品資料取得失敗',
+                text: error.response.data.message,
+                type: 'danger'
+            }))
+        }
+    }
     
     return (<>
         <section className="productDetail py-2 py-md-5 mb-5">
@@ -188,8 +215,8 @@ const ProductDetail = () => {
                     <div className="d-flex flex-fill flex-column gap-3 gap-md-4">
                         <div>
                             <div className="d-flex gap-2 gap-lg-4 flex-lg-row flex-column align-content-center">
-                                <h1 className="h5 m-0 lh-1">{tempProduct.title}</h1>
-                                <div className="tagBox">
+                                <h1 className="h5 m-0 align-self-lg-center">{tempProduct.title}</h1>
+                                <div className="detailTagBox">
                                     {tempProduct.is_newest && 
                                         <span className="tag textBody3 bg-info">
                                             <span className="material-icons textBody2">verified</span>
@@ -332,6 +359,31 @@ const ProductDetail = () => {
                             
                         </div>
                     </div>
+                </div>
+                <hr />
+                <div className="pt-0 pt-md-4">
+                    <h2 className={`${isMobile ? 'h3' : 'h2'} text-center py-5`}>
+                        <span className="titleUnderline"><span>熱門排行</span></span>
+                    </h2>
+                    <Swiper
+                        className="hottestSwiper"
+                        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                        spaceBetween={24} // 幻燈片之間的間距
+                        autoplay={{ delay: 3000, disableOnInteraction: false }}
+                        loop={hottestProducts.length >= 10}
+                        breakpoints={{ // N px 以上 一次顯示幾張
+                            640: { slidesPerView: 2 },  
+                            768: { slidesPerView: 3 },  
+                            1024: { slidesPerView: 4 }, 
+                            1440: { slidesPerView: 5 }
+                        }}
+                        >
+                        {hottestProducts?.map((product) => (
+                            <SwiperSlide className="mb-5" key={product.id}>
+                                <ProductCard product={product} />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         </section>

@@ -38,7 +38,7 @@ export default function Toast() {
                         className="btn bg-none text-white p-0 d-flex align-content-center"
                         data-bs-dismiss='toast'
                         aria-label="Close"
-                        ><span class="material-icons align-self-center">close</span></button>
+                        ><span className="material-icons align-self-center">close</span></button>
                 </div>
                 <div className="toast-body">{msg.text}</div>
             </div>

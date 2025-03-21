@@ -42,6 +42,7 @@ const AdminSingleOrder = () => {
         }))
         setIsChangeData(false)
     }
+    
     //暫存變更：訂購人資料
     const handleUserInputChange = (e) => {
         const { name, value } = e.target;
@@ -51,6 +52,7 @@ const AdminSingleOrder = () => {
         }))
         setIsChangeData(false)
     }
+    
     //暫存變更：變更產品數量，並重新計算總金額
     const handleProductQtyChange = (id, qty) => {
         //暫存指定id產品數量，並依照該產品有/無優惠券重新計算總金額
@@ -135,7 +137,7 @@ const AdminSingleOrder = () => {
                             <th>訂單編號</th>
                             <th>訂購時間</th>
                             <th>付款狀態</th>
-                            {/* <th>付款方式</th> */}
+                            <th>付款方式</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,33 +148,25 @@ const AdminSingleOrder = () => {
                                 <div className="form-check">
                                     <input type="checkbox" name="is_paid" id="isPaid"  
                                         checked={orderData.is_paid || false}
+                                        disabled={userData.paymond === '線上刷卡'}
                                         onChange={handleOrderInputChange}
                                         className="form-check-input" />
                                     <label className="form-check-label" htmlFor="isPaid">已付款</label>
                                 </div>
                             </td>
-                            {/* <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="form-check me-3">
-                                        <input type="radio" name="payment" id="cash"  
-                                            checked
-                                            className="form-check-input" />
-                                        <label className="form-check-label" htmlFor="cash">現金</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input type="radio" name="payment" id="transfer"  
-                                            className="form-check-input" />
-                                        <label className="form-check-label" htmlFor="transfer">轉帳</label>
-                                    </div>
-                                </div>
-                            </td> */}
+                            <td>
+                                {userData.paymond || '匯款轉帳'}
+                                {userData.paymond === '線上刷卡' && (
+                                    <p className="textBody3 text-secondary m-0">卡號:{userData.cardNumber}</p>
+                                )}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div className="row">
-                <div className="col-4">
-                    <div className="p-4 bg-white rounded-4">
+                <div className="col-xxl-4 mb-4 mb-xxl-0">
+                    <div className="p-4 bg-white rounded-4 h-100">
                         <h4 className="h4 mb-4">訂購人資料</h4>
                         <table className="table align-middle adminTable">
                             <tbody>
@@ -227,7 +221,7 @@ const AdminSingleOrder = () => {
                         </table>  
                     </div>
                 </div>
-                <div className="col-8">
+                <div className="col-xxl-8">
                     <div className="p-4 bg-white rounded-4 h-100">
                         <h4 className="h4 mb-4">訂購產品</h4>
                         <table className="table align-middle">
@@ -239,7 +233,7 @@ const AdminSingleOrder = () => {
                                     <th className="text-end">單價</th>
                                     <th className="text-end" style={{ width: "200px" }}>數量/單位</th>
                                     <th className="text-end">小計</th>
-                                    <th width='100'></th>
+                                    {!orderData.is_paid && <th width='100'></th> }
                                 </tr>
                             </thead>
                             <tbody>
@@ -266,34 +260,37 @@ const AdminSingleOrder = () => {
                                             $ {product.product.price.toLocaleString()}
                                         </td>
                                         <td className="text-end">
-                                            <div className="d-flex justify-content-end align-items-center">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary-outline btn-sm p-0 ps-2 d-flex rounded-end jystify-content-center"
-                                                    style={{ width: "32px", height: '32px' }}
-                                                    disabled={product.qty<=1}
-                                                    onClick={() => handleProductQtyChange(product.id, product.qty-1)}
-                                                    // onClick={()=> updateCart(product.id, product.product.title, product.qty-1, product.color)}
-                                                >
-                                                    <span className="material-icons align-content-center fs-6">remove</span>
-                                                </button>
-                                                <span
-                                                    className="text-center border-top border-bottom px-3 py-1" 
-                                                    style={{ width: "40px", height: '32px', cursor: "auto" }}
-                                                ><b>{product.qty}</b></span>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary-outline btn-sm p-0 ps-1 d-flex rounded-start jystify-content-center"
-                                                    style={{ width: "32px", height: '32px' }}
-                                                    onClick={() => handleProductQtyChange(product.id, product.qty+1)}
-                                                    //onClick={()=> updateCart(product.id, product.product.title, product.qty+1, product.color)}
-                                                >
-                                                    <span className="material-icons align-content-center fs-6">add</span>     
-                                                </button>
-                                                <span className="input-group-text text-secondary border-0 pe-0">
-                                                    {product.product.unit}
-                                                </span>
-                                            </div>
+                                            {!orderData.is_paid ? (
+                                                <div className="d-flex justify-content-end align-items-center">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary-outline btn-sm p-0 ps-2 d-flex rounded-end jystify-content-center"
+                                                        style={{ width: "32px", height: '32px' }}
+                                                        disabled={product.qty<=1}
+                                                        onClick={() => handleProductQtyChange(product.id, product.qty-1)}
+                                                        // onClick={()=> updateCart(product.id, product.product.title, product.qty-1, product.color)}
+                                                    >
+                                                        <span className="material-icons align-content-center fs-6">remove</span>
+                                                    </button>
+                                                    <span
+                                                        className="text-center border-top border-bottom px-3 py-1" 
+                                                        style={{ width: "40px", height: '32px', cursor: "auto" }}
+                                                    ><b>{product.qty}</b></span>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary-outline btn-sm p-0 ps-1 d-flex rounded-start jystify-content-center"
+                                                        style={{ width: "32px", height: '32px' }}
+                                                        onClick={() => handleProductQtyChange(product.id, product.qty+1)}
+                                                        //onClick={()=> updateCart(product.id, product.product.title, product.qty+1, product.color)}
+                                                    >
+                                                        <span className="material-icons align-content-center fs-6">add</span>     
+                                                    </button>
+                                                    <span className="input-group-text text-secondary border-0 pe-0">
+                                                        {product.product.unit}
+                                                    </span>
+                                                </div>
+                                            ) : (<span className="textBody1">{product.qty}</span>)
+                                            }
                                         </td>
                                         <td className="text-end">
                                             {product.final_total < product.total ? (
@@ -310,14 +307,17 @@ const AdminSingleOrder = () => {
                                             )}
                                             
                                         </td>
-                                        <td className="text-end" >
-                                            <button type="button" 
-                                                className="btn btn-primary-outline btn-sm px-2 d-inline-flex"
-                                                onClick={() => handleProductDelete(product.id)}
-                                                >
-                                                <span className="material-icons align-content-center fs-6">clear</span>
-                                            </button>
-                                        </td>
+                                        {!orderData.is_paid &&
+                                            <td className="text-end" >
+                                                <button type="button" 
+                                                    className="btn btn-primary-outline btn-sm px-2 d-inline-flex"
+                                                    onClick={() => handleProductDelete(product.id)}
+                                                    >
+                                                    <span className="material-icons align-content-center fs-6">clear</span>
+                                                </button>
+                                            </td>
+                                        }
+                                        
                                     </tr>
                                     )
                                 )
@@ -328,7 +328,7 @@ const AdminSingleOrder = () => {
                             )}
                             </tbody>
                         </table> 
-                        <div style={{paddingRight: '120px'}}>
+                        <div style={{paddingRight: orderData.is_paid ? '0' : '120px'}}>
                             <div className="d-flex align-items-center justify-content-end pb-2">
                                 {noCouponTotal? '總計' : '總金額'}
                                 <div className="text-end border-0" style={{ width: "130px" }}>

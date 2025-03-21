@@ -1,12 +1,43 @@
 .loginPage {
+    position: relative;
+    .tipBox {
+        position: fixed;
+        top:1rem;
+        left:1rem;
+        z-index: 2;
+        width:calc(100vw - 2rem);
+        display: flex;
+        align-items: center;
+        padding:12px 16px;
+        background: #e04c10;
+        color:#fff;
+        border-radius: 16px;
+        opacity: 0.9;
+        @media (max-width:767px) {
+            & {
+                top:calc(80px + 1rem);
+            }
+        }
+    }
     .AdminLogo {
         display: flex;
         justify-content: center;
         align-items: center;
         height:100vh;
+        @media (max-width:767px){
+            & {
+                height:auto;
+                padding:20px;
+            }
+            & img {
+                height: 40px;
+            }
+        }
     }
+    
 
     .login {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -15,6 +46,11 @@
         background-size: cover;
         background-position: center right;
         height:100vh;
+        @media (max-width:767px){
+            & {
+                height:calc(100vh - 80px)
+            }
+        }
         
         .loginForm {
             width: 250px;
@@ -22,6 +58,15 @@
             .btn {
                 --bs-btn-disabled-opacity: 0.8 !important;
             }
+        }
+    }
+    .copyright {
+        position: absolute;
+        bottom:0px;
+        text-align: center;
+        color: #fff;
+        @media (max-width:460px) {
+            max-width: 250px;
         }
     }
 }

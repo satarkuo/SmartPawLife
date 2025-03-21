@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReactLoading from "react-loading";
 import { ToastAlert } from '../../utils/sweetAlert';
 import logoAdmin from '../../assets/img/admin/logoAdmin.svg';
 import '../../assets/login.scss';
-
-
-
+import useScreenSize from '../../hooks/useScreenSize';
 
 const { VITE_BASE_URL: BASE_URL } = import.meta.env;
 
 const Login = () => {
+    
     const navigate = useNavigate();
     const {
         register,
@@ -21,6 +20,10 @@ const Login = () => {
     } = useForm()
 
     const [isLoading, setIsLoading] = useState(false); //局部loading
+
+    //RWD:自訂hook
+    const { screenWidth } = useScreenSize();
+    const isMobile = screenWidth < 1440; // 螢幕寬 < 1440，返回true，否則返回false
 
     // 執行登入
     const onSubmit = async (data) => {
@@ -49,13 +52,19 @@ const Login = () => {
 
     return (
         <div className="container-fluid loginPage">
-            <div className="row row-cols-2">
-                <div className='col'>
+            {isMobile &&
+                <div className="tipBox">
+                    <span className="material-icons-outlined align-content-center me-2 fs-4">info </span>
+                    建議使用裝置解析度寬1440px以上
+                </div>
+            }
+            <div className="row">
+                <div className='col-md-6'>
                     <div className="AdminLogo">
                         <img src={logoAdmin} alt="logo"/>
                     </div>
                 </div>
-                <div className="col login">
+                <div className="col-md-6 login">
                     <h1 className="h2 mt-0 text-white">後台管理系統</h1>
                     <p className="text-white">創造專為毛孩打造的智能生活</p>
                     <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
@@ -102,6 +111,9 @@ const Login = () => {
                             )}
                         </button>
                     </form>
+                    <Link to="/" className='textBody3 text-white mt-3 text-underline'>返回Smart Paw Life</Link>
+                    <p className='copyright textBody3'>
+                    無商業用途且僅供作品展示<br/>© Copyright 2024 SmartPaw Life. All Rights Reserved</p>
                 </div>
 
             </div>

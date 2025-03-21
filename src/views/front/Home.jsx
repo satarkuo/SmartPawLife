@@ -17,7 +17,7 @@ const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const Home = () => {
 
-    //swiper RWD:自訂hook
+    //RWD:自訂hook
     const { screenWidth } = useScreenSize();
     const isMobile = screenWidth < 640; // 螢幕寬 < 640，返回true，否則返回false
     
@@ -119,7 +119,7 @@ const Home = () => {
                             <p className={isMobile ? 'h5' : 'h4'}>{img.content}</p>
                         </div>
                         <div className="searchBar">
-                            <input type="search" placeholder="搜尋關鍵字" value={searchValue}
+                            <input type="search" placeholder="季節主打商品熱賣中" value={searchValue}
                                 className="input px-3"
                                 onChange={handleInputChange}
                                 onFocus={pauseSwiper}
@@ -195,7 +195,6 @@ const Home = () => {
                                     thumbs={{ swiper: hottestThumbsSwiper }}
                                     modules={[FreeMode, Navigation, Thumbs]}
                                     className='main-swiper rounded-3'
-                                    //className="mySwiper2"
                                 >
                                     <SwiperSlide>
                                         <img src={hottestProduct.imageUrl} className="main-image rounded-3" alt={hottestProduct.title}/>
@@ -208,7 +207,6 @@ const Home = () => {
                                 </Swiper>
                                 <Swiper
                                     onSwiper={setHottestThumbsSwiper}
-                                    
                                     slidesPerView={3}
                                     watchSlidesProgress={true}
                                     modules={[Navigation, Thumbs]}

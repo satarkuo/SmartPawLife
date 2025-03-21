@@ -25,11 +25,12 @@ const SearchProductResult = () => {
     useEffect(() => {
         //首頁若有搜尋則帶出搜尋結果
         if (searchValue !== '') {
-            dispatch(resetSelectedFilters())
+            dispatch(resetSelectedFilters()) //清空預設篩選條件
             let result = [...allProducts];
-            result = result.filter(product => product.title.includes(searchValue))
-            dispatch(setFilterProducts(result))
-            dispatch(setSearchValue(''))
+            //「讀取RTK：首頁輸入的關鍵字」-> 根據關鍵字搜尋產品
+            result = result.filter(product => product.title.includes(searchValue)) 
+            dispatch(setFilterProducts(result)) //帶入搜尋結果，渲染UI
+            dispatch(setSearchValue('')) //清空首頁使用的RTK搜尋欄位 searchValue
         }
         
     }, [searchValue, allProducts, dispatch]);
@@ -38,20 +39,20 @@ const SearchProductResult = () => {
     //RTK取得：首頁送出的的單一filter
     const singleFilter = useSelector(state => state.search.singleFilter)
     useEffect(() => {
-
         //首頁：限時優惠、熱門產品、最新產品：顯示單一分類產品搜尋結果
         if (singleFilter !== '') {
-            dispatch(resetSelectedFilters())
+            dispatch(resetSelectedFilters()) //清空預設篩選條件
             dispatch(setSearchValue(''))
             let result = [...allProducts];
-            if (singleFilter === 'is_discounted') {
+            //「讀取RTK：首頁點選的篩選分類」-> 根據分類拆選產品
+            if (singleFilter === 'is_discounted') { //限時優惠：篩選 有折扣 的商品
                 result = result.filter(product => product.origin_price > product.price)
-            } else {
+            } else { //熱門產品、最新產品：篩選 is_hottest、is_newest 為true的商品
                 result = result.filter(product => product[singleFilter])
             }
             
-            dispatch(setFilterProducts(result))
-            dispatch(setSingleFilter(''))
+            dispatch(setFilterProducts(result))  //帶入搜尋結果，渲染UI
+            dispatch(setSingleFilter('')) //清空首頁使用的RTK搜尋條件 setSingleFilter
         }
         
     }, [searchValue, allProducts, dispatch]);

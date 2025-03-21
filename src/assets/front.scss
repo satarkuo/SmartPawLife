@@ -170,6 +170,8 @@ header.frontHeader {
       left: 12px;
       top:16px;
       display: flex;
+      max-width: 200px;
+      flex-wrap: wrap;    
 
       .tag {
         display: flex;
@@ -179,6 +181,7 @@ header.frontHeader {
         background-color: var(--primaryDark);
         color: var(--gray0);
         margin-right: 8px;
+        margin-bottom:4px;
         line-height: 0.875rem;
 
         .material-icons {
@@ -417,7 +420,7 @@ section.productListPage {
         max-width:none;
         display: flex;
         flex-direction: row;
-        margin:20px 0 40px;
+        margin-bottom: 20px;
 
       }
     }
@@ -431,10 +434,11 @@ section.productListPage {
       color:var(--primaryDefault);
       background-color: var(--gray0);
       border-radius: 12px;
+      border:0;
       @media ( max-width:767px ) {
         & {
-          min-width:126px;
-  
+          gap:8px;
+          padding:8px;
         }
       }
 
@@ -566,7 +570,7 @@ section.productDetail {
     }
   }
 
-  .tagBox {
+  .detailTagBox {
     display: flex;
     gap:8px;
 
@@ -649,9 +653,11 @@ section.productDetail {
   }
   .tabBox {
     margin-top:64px;
+    margin-bottom: 120px;
     @media (max-width: 767px) {
       &{
         margin-top:48px;
+        margin-bottom: 60px;
       }
       .tab-content.contentBox {
         padding:24px 16px;
@@ -669,6 +675,28 @@ section.productDetail {
         border:1px solid var(--gray2);
         color:var(--secondaryDark);
       }
+    }
+  }
+
+  .hottestSwiper {
+
+    @media(max-width: 767px){
+      & {
+        padding-right:20%;
+      }
+    }
+    .productCard img {
+      max-height: 180px;
+      object-fit: cover;
+    }
+    //swiper style for contentAll
+    .swiper-button-prev,
+    .swiper-button-next { 
+      color: var(--secondaryDark);
+    }
+    .swiper-button-prev:after, 
+    .swiper-button-next:after { 
+      font-size: 16px; 
     }
   }
   
@@ -772,6 +800,67 @@ section.aboutPage {
   }
 }//end of aboutPage
 
+//---pageStyle ---- Cart.jsx 購物車
+section.cartList {
+  .cartTable {
+    .deleteBtn {
+      display:inline-flex;
+      justify-content: center;
+    }
+    
+    @media (max-width:991px) {
+      tr {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding:4px 12px;
+        border-radius: 12px;
+        background-color:var(--primaryPestel);
+        margin-bottom: 40px;
+
+        td {
+          display: flex;
+          align-items: center;
+          background-color:var(--primaryPestel);
+          border-color:var(--white);
+
+          .deleteBtn {
+            position: absolute;
+            right:12px;
+            top:32px;
+          }
+
+          &:last-child {
+            border:0;
+            margin: 0 !important;;
+          }
+
+          &:before {
+            display: inline-flex;
+            content:attr(data-label);
+            font-weight:bold;
+            color:var(--secondaryDark);
+            font-size: 14px;
+            margin-right:12px;
+            width:40px;
+          }
+        }
+
+        
+      }
+    }
+  }
+  
+
+}//end of cartList
+
+section.orderInfo {
+  .creditInfo {
+    background: var(--primaryPestel);
+    padding:16px;
+    border-radius: 16px;
+  }
+}//end of orderInfo
 
 
 

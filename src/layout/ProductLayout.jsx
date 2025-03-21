@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../redux/searchSlice";
 import { setFilterProducts } from "../redux/productSlice";
@@ -26,6 +26,7 @@ const tagList = [ '寵物', '智能', '逗貓棒']
 const ProductLayout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const params = useParams();
 
     //swiper RWD:自訂hook
@@ -48,16 +49,15 @@ const ProductLayout = () => {
     }), [])
 
     //產品關鍵字篩選邏輯
-    const [searchText, setSearchText] = useState('')
+    const [searchText, setSearchText] = useState('') //產品頁搜尋關鍵字input值
     const handleFilterKeywordProducts = useCallback(() => {
-        dispatch(setSearchValue(''))
-        setFiltersData(filterDefault)
+        dispatch(setSearchValue('')) //清空RTK關鍵字欄位，避免被首頁輸入的關鍵字搜尋影響
+        setFiltersData(filterDefault) //將篩選條件重置回預設，確保以全部產品進行搜尋，避免送出篩選時交叉篩選影響結果
         let result = [...allProducts];
         result = result.filter(product => product.title.includes(searchText))
-        dispatch(setFilterProducts(result))
-        setSearchText('')
-        navigate(`/productList/search/${searchText}`)
-        
+        dispatch(setFilterProducts(result)) //RTK儲存篩選結果，預計於 SearchProductResult.jsx 結果頁面顯示
+        setSearchText('') //清空input欄位
+        navigate(`/productList/search/${searchText}`) //路由切換至結果頁面        
     }, [allProducts, dispatch, filterDefault, navigate, searchText])
 
     //input:輸入搜尋關鍵字
@@ -69,8 +69,8 @@ const ProductLayout = () => {
     //input:快速帶入關鍵字
     const handleTagSearch = (tag) => {
         setSearchText(tag)
-        dispatch(setSearchValue(''))
-        setFiltersData(filterDefault)
+        dispatch(setSearchValue('')) //清空RTK關鍵字欄位，避免被首頁輸入的關鍵字搜尋影響
+        setFiltersData(filterDefault) //將篩選條件重置回預設，確保以全部產品進行搜尋，避免送出篩選時交叉篩選影響結果
     }
        
     //篩選條件狀態
@@ -85,9 +85,14 @@ const ProductLayout = () => {
 
     //產品篩選邏輯
     const handleFilterProducts = useCallback(() => {
+        // 當滿足這兩個動作條件時：
+        //  1.從首頁banner搜尋關鍵字時：searchValue 非空白
+        //  2.從首頁點選限時優惠、熱門產品、最新產品時：singleFilter 非空白
+        // 則改在SearchProductResult.jsx執行「讀取RTK：直接顯示篩選產品資料」，
+        // 不往下執行預設的篩選動作，避免產品資料被覆蓋
         if (searchValue !== '' || singleFilter !== '') { return }
+        
         let result = [...allProducts];
-
         result = result.filter((product) => (
             Object.values(filters).every((filter) => filter(product))
         ))
@@ -95,15 +100,18 @@ const ProductLayout = () => {
         
     },[allProducts, dispatch, filters])
 
-    const handleFilterClick = (filterName) => {        
-        setFiltersData({
+    //button：點擊篩選產品主題：新品報到、限時搶購、冠軍排行
+    const handleFilterClick = (filterName) => { 
+        const newFiltersData = {
             ...filtersData,
             [filterName] : !filtersData[filterName], //切換true/false
-        })
+        }       
+        setFiltersData(newFiltersData)
         handleFilterProducts();
-        //change Name for render UI
+        
+        //change Name for render path & UI
         if (filterName ==='is_newest' && !filtersData[filterName] ){ 
-            filterName = '新品報到'
+            filterName = '新品報到';
         } else if (filterName ==='is_discounted'  && !filtersData[filterName] ) { 
             filterName = '限時搶購'
         } else if (filterName ==='is_hottest'  && !filtersData[filterName] ) { 
@@ -111,10 +119,11 @@ const ProductLayout = () => {
         } else {
             filterName = filtersData.category
         }
-        navigate(`/productList/search/${filterName}`)
+        
+        navigate(`/productList/search/${category}`)
     }
 
-    //category for breadcrumb
+    //button：點擊切換產品分類：全部、智能戶外系列、質感室內系列
     const [category, setCategory] = useState('全部')
     const handleCategoryClick = (categoryName) => {
         setFiltersData({
@@ -126,9 +135,21 @@ const ProductLayout = () => {
         setCategory(categoryName)
     }
 
+    // 預設執行顯示篩選結果
     useEffect(() => {
         handleFilterProducts()
     },[handleFilterProducts])
+
+    // 點選 header nav、breadcrumb 的產品列表時
+    // 強制切換分類為全部、並取消所有篩選分類
+    useEffect(() => {
+        if ((location.pathname.includes('/productList/all')) 
+                || 
+            (location.pathname.includes('/productList/favorite'))) {
+            setCategory('全部')
+            setFiltersData(filterDefault)
+        }
+    },[location.pathname, filterDefault])
 
     return (
         <>
@@ -158,16 +179,16 @@ const ProductLayout = () => {
                             首頁
                             <span className="material-icons-outlined"></span>
                         </Link>
-                        <Link className="breadLink" to='/productList'>
+                        <Link className="breadLink" to='/productList/all'>
                             智能產品
                             <span className="material-icons-outlined"></span>
                         </Link>
                         <span className="breadLink">{category}</span>
                     </div>
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-3 mb-3">
                             <div className={`searchBar ${searchText ? 'active' : ''}`}>
-                                <input type="search" placeholder="搜尋關鍵字" value={searchText}
+                                <input type="search" placeholder="季節主打商品熱賣中" value={searchText}
                                     className="input px-3"
                                     onChange={handleInputChange}
                                     />
@@ -177,7 +198,7 @@ const ProductLayout = () => {
                                     <span className="material-icons-outlined fs-5 align-self-center">arrow_forward</span>    
                                 </button>
                             </div>
-                            <div className="tagList d-flex gap-1 mb-3 mb-md-5 mt-2">
+                            <div className="tagList d-flex gap-1 mb-4 mb-md-5 mt-2">
                                 {tagList.map(tag => (
                                     <button type="text" key={tag}
                                     className="badge rounded-pill border-0 text-secondary"
@@ -185,6 +206,32 @@ const ProductLayout = () => {
                                 ))}
                             </div>
                             <h6 className="h6 mb-3 d-none d-md-block">產品分類</h6>
+                            <div className="categoryNavRWD">
+                                <ul className="categoryNav">
+                                    <li>
+                                        <button type="button" 
+                                            className={`btn categoryBtn ${filtersData.category === '全部' ? 'active' : ''}`}
+                                            onClick={() => handleCategoryClick('全部')}>
+                                            <span className="material-icons">list</span><span className="d-none d-md-block">全部</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" 
+                                            className={`btn categoryBtn ${filtersData.category === '智能戶外系列' ? 'active' : ''}`}
+                                            onClick={() => handleCategoryClick('智能戶外系列')}>
+                                            <span className="material-icons">light_mode</span>智能戶外系列
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" 
+                                            className={`btn categoryBtn ${filtersData.category === '質感室內系列' ? 'active' : ''}`}
+                                            onClick={() => handleCategoryClick('質感室內系列')}>
+                                            <span className="material-icons">home</span>質感室內系列
+                                        </button>
+                                    </li>                                
+                                </ul>  
+                            </div>
+                            <h6 className="h6 mb-1 mb-md-3">主題篩選</h6>
                             <div className="categoryNavRWD">
                                 <ul className="categoryNav">                                
                                     <li>
@@ -207,30 +254,10 @@ const ProductLayout = () => {
                                             onClick={(() => handleFilterClick('is_discounted'))}>
                                             <span className="material-icons">timer</span>限時搶購
                                         </button>
-                                    </li>                        
-                                    <li>
-                                        <button type="button" 
-                                            className={`btn categoryBtn ${filtersData.category === '全部' ? 'active' : ''}`}
-                                            onClick={() => handleCategoryClick('全部')}>
-                                            <span className="material-icons">list</span>全部
-                                        </button>
                                     </li>
-                                    <li>
-                                        <button type="button" 
-                                            className={`btn categoryBtn ${filtersData.category === '智能戶外系列' ? 'active' : ''}`}
-                                            onClick={() => handleCategoryClick('智能戶外系列')}>
-                                            <span className="material-icons">light_mode</span>智能戶外系列
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button type="button" 
-                                            className={`btn categoryBtn ${filtersData.category === '質感室內系列' ? 'active' : ''}`}
-                                            onClick={() => handleCategoryClick('質感室內系列')}>
-                                            <span className="material-icons">home</span>質感室內系列
-                                        </button>
-                                    </li>                                
-                                </ul>  
+                                </ul>
                             </div>
+                            
                                                       
                             
                         </div>

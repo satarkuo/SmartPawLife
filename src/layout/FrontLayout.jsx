@@ -109,6 +109,7 @@ const FrontLayout = () => {
                                         key={route.path}
                                         {...(route.newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})} >
                                         {route.name === '購物車' ? (
+                                            carts.length >= 1 &&
                                             <div className="position-relative">
                                                 <span
                                                     className="position-absolute badge text-bg-primary rounded-pill text-white"
@@ -120,6 +121,7 @@ const FrontLayout = () => {
                                             </div>
                                         ): ''}
                                         {route.name === '收藏清單' ? (
+                                            (Object.keys(favoriteList).filter(id => favoriteList[id] === true).length) >= 1 &&
                                             <div className="position-relative">
                                                 <span
                                                     className="position-absolute badge text-bg-primary rounded-pill text-white"
@@ -129,6 +131,7 @@ const FrontLayout = () => {
                                                     }}
                                                 >{Object.keys(favoriteList).filter(id => favoriteList[id] === true).length}</span>
                                             </div>
+                                            
                                         ): ''}
                                         <span className="material-icons align-content-center me-1 fs-5 ">{route.icon} </span>
                                         {isNavOpen === true && route.name}
