@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../redux/searchSlice";
-import { setFilterProducts } from "../redux/productSlice";
+import { setAllProducts, setFilterProducts } from "../redux/productSlice";
+import { setSearchValue, setSingleFilter } from "../redux/searchSlice";
+import { pushMessage } from "../redux/toastSlice";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
-
 import useScreenSize from "../hooks/useScreenSize";
-
 import banner1Lg from '../assets/img/banner/product/banner1-lg.png';
 import banner1Md from '../assets/img/banner/product/banner1-md.png';
+import axios from "axios";
+
+
+const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const bannerImgs = [
     {
@@ -29,7 +32,7 @@ const ProductLayout = () => {
     const location = useLocation();
     const params = useParams();
 
-    //swiper RWD:自訂hook
+    //RWD:自訂hook
     const { screenWidth } = useScreenSize();
     const isMobile = screenWidth < 640; // 螢幕寬 < 640，返回true，否則返回false
 
@@ -39,7 +42,7 @@ const ProductLayout = () => {
     const searchValue = useSelector(state => state.search.searchValue)
     //RTK取得：首頁送出的的單一filter
     const singleFilter = useSelector(state => state.search.singleFilter)
-    
+
     //篩選條件預設值
     const filterDefault = useMemo(() => ({
         category:'全部',
@@ -85,22 +88,41 @@ const ProductLayout = () => {
 
     //產品篩選邏輯
     const handleFilterProducts = useCallback(() => {
-        // 當滿足這兩個動作條件時：
-        //  1.從首頁banner搜尋關鍵字時：searchValue 非空白
-        //  2.從首頁點選限時優惠、熱門產品、最新產品時：singleFilter 非空白
-        // 則改在SearchProductResult.jsx執行「讀取RTK：直接顯示篩選產品資料」，
-        // 不往下執行預設的篩選動作，避免產品資料被覆蓋
-        if (searchValue !== '' || singleFilter !== '') { return }
+        // singleFilter(首頁點選更多限時優惠、熱門產品、最新產品)
+        // searchValue(首頁搜尋關鍵字)
+        // 初始化執行：
+        // -> 1. 若singleFilter有值則取值，並以全部產品進行篩選與渲染UI
+        // -> 2. 若singleFilter無值，則判斷searchValue是否有值，並以全部產品進行篩選與渲染UI
+        // -> 3. 以上皆無，才以全部產品套用filtersData篩選條件進行篩選(預設篩選條件為顯示全部)
+        if (singleFilter !== '') {
+            dispatch(setSearchValue(''))
+            let result = [...allProducts];
+            //「讀取RTK：首頁點選的篩選分類」-> 根據分類拆選產品
+            if (singleFilter === 'is_discounted') { //限時優惠：篩選 有折扣 的商品
+                result = result.filter(product => product.origin_price > product.price)
+            } else { //熱門產品、最新產品：篩選 is_hottest、is_newest 為true的商品
+                result = result.filter(product => product[singleFilter])
+            }
+            dispatch(setFilterProducts(result))  //帶入搜尋結果，渲染UI
+            dispatch(setSingleFilter('')) //清空首頁使用的RTK搜尋條件 setSingleFilter
+        } else if (searchValue !== '') { //首頁若有搜尋則帶出搜尋結果
+            let result = [...allProducts];
+            //「讀取RTK：首頁輸入的關鍵字」-> 根據關鍵字搜尋產品
+            result = result.filter(product => product.title.includes(searchValue)) 
+            dispatch(setFilterProducts(result)) //帶入搜尋結果，渲染UI
+            dispatch(setSearchValue('')) //清空首頁使用的RTK搜尋欄位 searchValue
+        } else {
+            // 若皆無則進行篩選初始化，預設篩選條件顯示全部產品
+            let result = [...allProducts];
+            result = result.filter((product) => (
+                Object.values(filters).every((filter) => filter(product))
+            ))
+            dispatch(setFilterProducts(result));
+        }
         
-        let result = [...allProducts];
-        result = result.filter((product) => (
-            Object.values(filters).every((filter) => filter(product))
-        ))
-        dispatch(setFilterProducts(result));
-        
-    },[allProducts, dispatch, filters])
+    },[singleFilter, searchValue, allProducts, dispatch, filters])
 
-    //button：點擊篩選產品主題：新品報到、限時搶購、冠軍排行
+    //篩選button：點擊篩選產品主題：新品報到、限時搶購、冠軍排行
     const handleFilterClick = (filterName) => { 
         const newFiltersData = {
             ...filtersData,
@@ -120,36 +142,68 @@ const ProductLayout = () => {
             filterName = filtersData.category
         }
         
-        navigate(`/productList/search/${category}`)
+        navigate(`/productList/search/${filtersData.category}`)
     }
 
-    //button：點擊切換產品分類：全部、智能戶外系列、質感室內系列
-    const [category, setCategory] = useState('全部')
+    //篩選button：點擊切換產品分類：全部、智能戶外系列、質感室內系列
+    //const [category, setCategory] = useState('全部')
     const handleCategoryClick = (categoryName) => {
         setFiltersData({
             ...filtersData,
             category : categoryName,
         })
         handleFilterProducts();
-        navigate(`/productList/search/${categoryName}`)
-        setCategory(categoryName)
+        if (categoryName === '全部'){
+            navigate(`/productList/all`)
+        } else {
+            navigate(`/productList/search/${categoryName}`)
+        }
     }
 
-    // 預設執行顯示篩選結果
-    useEffect(() => {
-        handleFilterProducts()
-    },[handleFilterProducts])
+    //取得所有產品
+    const getAllProducts = async() => {
+        try {
+            const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products/all`);
+            const allProducts = res.data.products;
+            dispatch(setAllProducts(allProducts))
+        } catch (error) {
+            dispatch(pushMessage({
+                title: '產品資料取得失敗',
+                text: error.response.data.message,
+                type: 'danger'
+            }))
+        }
+    }
 
+    // 初始化顯示資料：預設執行顯示篩選結果(預設篩選條件為全部)
+    // 當篩選條件變更時，重新執行篩選取結果
+    useEffect(() => {
+        if (allProducts.length === 0) {
+            getAllProducts();
+        }
+        handleFilterProducts() 
+    },[allProducts, filtersData])
+    
     // 點選 header nav、breadcrumb 的產品列表時
     // 強制切換分類為全部、並取消所有篩選分類
     useEffect(() => {
         if ((location.pathname.includes('/productList/all')) 
                 || 
-            (location.pathname.includes('/productList/favorite'))) {
-            setCategory('全部')
+            (location.pathname.includes('/productList/favorite'))){
             setFiltersData(filterDefault)
         }
-    },[location.pathname, filterDefault])
+    },[location.pathname, filterDefault, navigate])
+
+    // 若在搜尋結果頁面執行重新整理，則自動導回全部產品列表頁
+    useEffect(() => {
+        // 執行首頁關鍵字搜尋、首頁分類查看更多產品時，不往下執行，避免誤判導致自動導向
+        if (singleFilter !== '' || searchValue !== '' ) { return }
+        const isReload = performance.getEntriesByType('navigation')[0]?.type === 'reload'
+        if (isReload && location.pathname.includes('/productList/search')) {
+            navigate('/productList/all', {replace: true})
+            setFiltersData(filterDefault)
+        }
+    },[])
 
     return (
         <>
@@ -183,7 +237,7 @@ const ProductLayout = () => {
                             智能產品
                             <span className="material-icons-outlined"></span>
                         </Link>
-                        <span className="breadLink">{category}</span>
+                        <span className="breadLink">{filtersData.category}</span>
                     </div>
                     <div className="row">
                         <div className="col-md-3 mb-3">

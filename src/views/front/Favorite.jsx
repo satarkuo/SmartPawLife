@@ -7,6 +7,8 @@ import { ToastAlert } from '../../utils/sweetAlert';
 import ReactLoading from "react-loading";
 import { setAllProducts } from "../../redux/productSlice";
 import ProductCard from "../../component/ProductCard";
+import { Link } from "react-router-dom";
+
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
@@ -54,12 +56,19 @@ const Favorite = () => {
                     <div dangerouslySetInnerHTML={{ __html: productInfoData['加入收藏'].content }} />
                 </div>
             </div>
+            {favoriteProducts.length === 0 &&
+                <p className="textBody2 text-secondary">
+                    還沒有收藏任何商品喔！趕快去逛逛吧！！<br/>
+                    <Link to='/productList/all' className='btn btn-primary mt-2'>找找智能商品</Link>
+                </p>
+            }
             <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                 {favoriteProducts?.map((product) => (
                     <div className="col mb-5" key={product.id}>
                         <ProductCard product={product} />
                     </div>
                 ))}
+                
             </div>
             {isScreenLoading && (
                 <div

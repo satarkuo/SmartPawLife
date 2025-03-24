@@ -26,7 +26,7 @@ const Home = () => {
     const pauseSwiper = () => swiperRef.current?.autoplay.stop(); //暫停
     const resumeSwiper = () => swiperRef.current?.autoplay.start(); //恢復
 
-    //取得商品資料
+    //商品資料
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [cheaperProducts, setCheaperProducts] = useState([]); //限時優惠商品list
@@ -37,6 +37,9 @@ const Home = () => {
         getAllProducts();
     },[])
 
+    // 初始獲取API資料：取得全部商品資料
+    // RTK儲存：將全部商品資料儲存至RTK
+    // useState：將全部商品進一步篩選，使用useState做儲存與顯示
     const getAllProducts = async() => {
         try {
             const res = await axios.get(`${BASE_URL}/api/${API_PATH}/products/all`);
@@ -66,13 +69,13 @@ const Home = () => {
     //RTK取得：搜尋關鍵字
     const searchValue = useSelector(state => state.search.searchValue)
 
-    //Swiper Banner input:儲存關鍵字
+    //Swiper Banner input：儲存關鍵字
     const handleInputChange = (e) => {
         const { value } = e.target;
         dispatch(setSearchValue(value));
     }
 
-    //Swiper Banner 送出搜尋
+    //Swiper Banner input：送出搜尋關鍵字
     const handleFilterProducts = () => {
             if (searchValue !== '') {
                 navigate(`/productList/search/${searchValue}`)
@@ -83,7 +86,9 @@ const Home = () => {
                 });
             }
     }
-    //button: 送出搜尋
+    // 處理邏輯：限時優惠、熱門產品、最新產品 -> 看更多
+    // RTK儲存：儲存篩選主題名稱：限時優惠、熱門產品、最新產品
+    // 換頁urlpath設定(提供filterName讓結果頁顯示)
     const handleButtonFilterProducts = (filterName) => {
         dispatch(setSingleFilter(filterName))
         //change Name for render UI
