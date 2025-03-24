@@ -818,6 +818,9 @@ section.cartList {
         background-color:var(--primaryPestel);
         margin-bottom: 40px;
 
+
+        
+
         td {
           display: flex;
           align-items: center;
@@ -845,8 +848,23 @@ section.cartList {
             width:40px;
           }
         }
+      }
+      tr.nodata {
+        border-radius: 0;
+        background:none;
+        border-top:1px solid var(--gray1);
+        border-bottom:1px solid var(--gray1);
 
-        
+        & td {
+          background:none;
+          display: flex;
+          justify-content: center;
+        }
+
+        & td:before {
+          width:0;
+        }
+
       }
     }
   }

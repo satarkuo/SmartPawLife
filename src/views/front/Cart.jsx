@@ -300,7 +300,7 @@ const Cart = () => {
                                         )
                                     })
                                 ) : (
-                                    <tr className="mb-0">
+                                    <tr className="mb-0 nodata">
                                         <td colSpan='7' className="text-center text-body-tertiary">購物車沒有商品</td>
                                     </tr>
                                 )
