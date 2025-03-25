@@ -60,7 +60,10 @@ const ProductDetail = () => {
             });
         } finally {
             setIsScreenLoading(false)
+            setSelectedColor(defaultColor)
+            setQtySelect(1)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[product_id])
 
     useEffect(() => {
@@ -102,6 +105,8 @@ const ProductDetail = () => {
         } finally {
             //mode：加入購物車shopping、直接購買checkout
             mode === 'shopping'? setIsLoading(false) : setIsScreenLoading(false);
+            setSelectedColor(defaultColor)
+            setQtySelect(1)
         }
     }
 
@@ -124,6 +129,7 @@ const ProductDetail = () => {
     const [hottestProducts, setHottestProduct] = useState([]); //限時優惠商品list
     useEffect(() => {
         getAllProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const getAllProducts = async() => {

@@ -42,6 +42,7 @@ const AdminCoupon = () => {
     }
     useEffect(() => {
         getCouponsList()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const defaultData = {
         title: '',

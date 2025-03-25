@@ -64,6 +64,7 @@ const AdminProduct = () => {
 
     useEffect(() => {
         getProductsList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     //頁碼邏輯

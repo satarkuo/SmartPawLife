@@ -9,7 +9,6 @@ const App = () => {
         <Provider store={store}>
             <Toast />
             <RouterProvider router={router} />
-                
         </Provider>
     )
 }

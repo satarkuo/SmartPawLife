@@ -30,6 +30,7 @@ const AdminSingleOrder = () => {
 
     useEffect(() => { 
         initOrderData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     //暫存變更：單筆訂單資料

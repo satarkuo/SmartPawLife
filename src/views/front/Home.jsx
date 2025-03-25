@@ -35,6 +35,7 @@ const Home = () => {
 
     useEffect(() => {
         getAllProducts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     // 初始獲取API資料：取得全部商品資料

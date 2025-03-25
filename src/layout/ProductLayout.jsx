@@ -182,6 +182,7 @@ const ProductLayout = () => {
             getAllProducts();
         }
         handleFilterProducts() 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[allProducts, filtersData])
     
     // 點選 header nav、breadcrumb 的產品列表時
@@ -203,6 +204,7 @@ const ProductLayout = () => {
             navigate('/productList/all', {replace: true})
             setFiltersData(filterDefault)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (

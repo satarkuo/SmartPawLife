@@ -11,7 +11,6 @@ import fb from '../assets/img/front/icon-fb.svg';
 import ig from '../assets/img/front/icon-ig.svg';
 import line from '../assets/img/front/icon-line.svg';
 
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -63,6 +62,7 @@ const FrontLayout = () => {
 
     useEffect(() => {
         getCartList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     //取得儲存的購物車、收藏清單

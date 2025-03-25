@@ -45,6 +45,7 @@ const Cart = () => {
     //初始化購物車列表
     useEffect(() => {
         getCartList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     //購物車：修改單一產品
