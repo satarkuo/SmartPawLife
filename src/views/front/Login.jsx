@@ -113,7 +113,7 @@ const Login = () => {
                     </form>
                     <Link to="/" className='textBody3 text-white mt-3 text-underline'>返回Smart Paw Life</Link>
                     <p className='copyright textBody3'>
-                    無商業用途且僅供作品展示<br/>© Copyright 2024 SmartPaw Life. All Rights Reserved</p>
+                    無商業用途且僅供作品展示<br/>© Copyright 2025 SmartPaw Life. All Rights Reserved</p>
                 </div>
 
             </div>

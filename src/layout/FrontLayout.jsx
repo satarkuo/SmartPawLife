@@ -186,7 +186,7 @@ const FrontLayout = () => {
                     <div className='col'>
                         <p className='textBody3 text-center copyright'>
                             SmartPaw Life股份有限公司：100 台北市中正區重慶南路一段 122 號<br/>
-                            無商業用途且僅供作品展示 | 版權所有：© Copyright 2024 SmartPaw Life. All Rights Reserved
+                            無商業用途且僅供作品展示 | 版權所有：© Copyright 2025 SmartPaw Life. All Rights Reserved
                         </p>
                     </div> 
                 </div>          
