@@ -1,0 +1,39 @@
+# 不需要格式化的目錄
+dist
+build
+
+# 安裝套件
+node_modules
+
+# 測試報告等
+coverage
+
+# 環境變數檔案
+.env
+.env.*  
+
+# 打包產物
+*.min.js
+*.min.css
+
+# Git 設定檔
+.git
+
+# 設定與建置相關
+.vscode/
+*.log
+package-lock.json
+
+# 靜態資源（通常不需格式化）
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+
+# Public 資料夾（如果有的話）
+public
+
+# 其他自訂排除
+screenshots
