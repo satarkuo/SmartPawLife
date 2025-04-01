@@ -5,7 +5,6 @@ import axios from 'axios';
 import ReactLoading from 'react-loading';
 import { ToastAlert } from '../../utils/sweetAlert';
 import logoAdmin from '../../assets/img/admin/logoAdmin.svg';
-import '../../assets/login.scss';
 import useScreenSize from '../../hooks/useScreenSize';
 
 const { VITE_BASE_URL: BASE_URL } = import.meta.env;
