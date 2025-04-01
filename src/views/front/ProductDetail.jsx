@@ -210,17 +210,16 @@ const ProductDetail = () => {
                 </Swiper>
                 <Swiper
                   onSwiper={setThumbsSwiper}
-                  spaceBetween={24}
                   slidesPerView={3}
                   watchSlidesProgress={true}
                   modules={[Navigation, Thumbs]}
                   className="thumbs-swiper"
                   breakpoints={{
-                    1400: {
-                      slidesPerView: 3,
+                    991: {
+                      spaceBetween: 24,
                     },
                     0: {
-                      slidesPerView: 3,
+                      spaceBetween: 12,
                     },
                   }}
                   //About.jsxstyle={{width: '80px'}}
