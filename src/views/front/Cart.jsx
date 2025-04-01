@@ -335,7 +335,7 @@ const Cart = () => {
             </tbody>
           </table>
           <div className="row">
-            <div className={`col-12 col-lg-4 ${cartList.carts?.length >= 1 && 'pb-5'}`}>
+            <div className={`col-lg-4 ${cartList.carts?.length >= 1 && 'pb-5'}`}>
               {cartList.carts?.length >= 1 && (
                 <div className="d-flex">
                   <input
@@ -367,7 +367,7 @@ const Cart = () => {
                 </div>
               )}
             </div>
-            <div className="col-12 col-lg-8" style={{ paddingRight: !isMobile && '120px' }}>
+            <div className="col-lg-8" style={{ paddingRight: !isMobile && '120px' }}>
               <div className="d-flex align-items-center justify-content-between justify-content-lg-end pb-2">
                 {cartList.total > cartList.final_total ? '總計' : '總金額'}
                 <div className="text-end border-0" style={{ width: '130px' }}>

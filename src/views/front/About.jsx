@@ -160,10 +160,10 @@ const About = () => {
           </span>
         </h2>
         <div className="row">
-          <div className="col-12 col-md-5">
+          <div className="col-md-5">
             <img src={cover} className="rounded-3 mb-3 mb-md-0" style={{ maxWidth: '100%' }} />
           </div>
-          <div className="col-12 col-md-7 d-flex flex-column justify-content-center">
+          <div className="col-md-7 d-flex flex-column justify-content-center">
             <h5 className="h5 text-primary">攜手關懷，共同守護寵物的未來</h5>
             <p
               className={`${isMobile ? 'textBody2' : 'textBody1'} m-0`}
