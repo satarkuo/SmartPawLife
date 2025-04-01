@@ -64,9 +64,8 @@ const FrontLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //取得儲存的購物車、收藏清單
+  //取得儲存的購物車
   const carts = useSelector((state) => state.cart.carts);
-  const favoriteList = useSelector((state) => state.favorite.favoriteList);
 
   //scroll to top
   const { pathname, search } = useLocation();
@@ -122,26 +121,6 @@ const FrontLayout = () => {
                                 }}
                               >
                                 {carts.length}
-                              </span>
-                            </div>
-                          )
-                        : ''}
-                      {route.name === '收藏清單'
-                        ? Object.keys(favoriteList).filter((id) => favoriteList[id] === true)
-                            .length >= 1 && (
-                            <div className="position-relative">
-                              <span
-                                className="position-absolute badge text-bg-primary rounded-pill text-white"
-                                style={{
-                                  bottom: '6px',
-                                  left: '10px',
-                                }}
-                              >
-                                {
-                                  Object.keys(favoriteList).filter(
-                                    (id) => favoriteList[id] === true
-                                  ).length
-                                }
                               </span>
                             </div>
                           )
