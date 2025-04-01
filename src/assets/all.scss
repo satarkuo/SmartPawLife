@@ -324,6 +324,13 @@ textarea.textarea {
   --bs-btn-disabled-border-color: var(--gray2);
 }
 
+.link-primary {
+  color: var(--secondaryDark) !important;
+  &:hover {
+    color: var(--primaryDefault);
+  }
+}
+
 //pagination style
 .pagination {
   --bs-pagination-font-size: 1rem;
