@@ -131,7 +131,21 @@ function ProductModal({
   };
   //modal input
   const handleModalInputChange = (e) => {
-    const { name, value, checked, type } = e.target;
+    let { name, value, checked, type } = e.target;
+    // --- 價格欄位的特別處理 ---
+    if (['origin_price', 'price'].includes(name)) {
+      // 若全是 0 則保留單一 0 (例如 000 ➜ 0)
+      if (/^0+$/.test(value)) {
+        value = '0';
+      } else {
+        value = value.replace(/^0+/, ''); // 移除開頭的 0（例如 0123 ➜ 123）
+      }
+      // 轉為整數、限制最小為 0
+      let parsed = parseInt(value, 10);
+      if (isNaN(parsed)) value = 0; // 防止使用者清空後輸入亂碼
+      if (parsed < 0) value = 0; //防止負數
+    }
+    // --- 欄位更新 ---
     setTempModalData((prevData) => ({
       ...prevData,
       //若type是checkbox則取得checked的值，否則取得value的值
@@ -414,6 +428,7 @@ function ProductModal({
                         name="origin_price"
                         id="origin_price"
                         value={tempModalData.origin_price}
+                        min={0}
                         onChange={handleModalInputChange}
                         className="form-control"
                         placeholder="請輸入原價"
@@ -430,6 +445,7 @@ function ProductModal({
                         name="price"
                         id="price"
                         value={tempModalData.price}
+                        min={0}
                         onChange={handleModalInputChange}
                         className="form-control"
                         placeholder="請輸入售價"
