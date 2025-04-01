@@ -246,19 +246,19 @@ const ProductDetail = () => {
                   <h1 className="h5 m-0 align-self-lg-center">{tempProduct.title}</h1>
                   <div className="detailTagBox">
                     {tempProduct.is_newest && (
-                      <span className="tag textBody3 bg-info">
+                      <span className="tag tag-newest textBody3">
                         <span className="material-icons textBody2">verified</span>
                         新品
                       </span>
                     )}
                     {tempProduct.is_hottest && (
-                      <span className="tag textBody3">
+                      <span className="tag tag-hottest textBody3">
                         <span className="material-icons textBody2">local_fire_department</span>
                         TOP
                       </span>
                     )}
                     {tempProduct.origin_price > tempProduct.price && (
-                      <span className="tag textBody3 bg-primary">
+                      <span className="tag tag-cheaper textBody3">
                         <span className="material-icons textBody2">timer</span>
                         限時優惠
                       </span>

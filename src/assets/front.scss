@@ -189,6 +189,21 @@ header.frontHeader {
         .material-icons {
           color: var(--gray0);
         }
+
+        &.tag-newest {
+          background-color: var(--primaryPestel);
+          color: var(--primaryDark);
+
+          .material-icons {
+            color: var(--primaryDark);
+          }
+        }
+        &.tag-hottest {
+          background-color: var(--primaryDark);
+        }
+        &.tag-cheaper {
+          background-color: var(--primaryDefault);
+        }
       }
     }
     .favoriteBtn {
@@ -587,6 +602,20 @@ section.productDetail {
 
       .material-icons {
         color: var(--gray0);
+      }
+      &.tag-newest {
+        background-color: var(--primaryPestel);
+        color: var(--primaryDark);
+
+        .material-icons {
+          color: var(--primaryDark);
+        }
+      }
+      &.tag-hottest {
+        background-color: var(--primaryDark);
+      }
+      &.tag-cheaper {
+        background-color: var(--primaryDefault);
       }
     }
   }

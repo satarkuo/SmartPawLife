@@ -54,6 +54,38 @@
       border-radius: 4px;
       border: 1px solid var(--gray2);
     }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 2px 8px;
+      background-color: var(--primaryDark);
+      color: var(--gray0);
+      margin-right: 4px;
+      margin-top: 4px;
+      line-height: 0.875rem;
+      font-size: 14px;
+
+      .material-icons {
+        color: var(--gray0);
+        font-size: 14px;
+      }
+
+      &.tag-newest {
+        background-color: var(--primaryPestel);
+        color: var(--primaryDark);
+
+        .material-icons {
+          color: var(--primaryDark);
+        }
+      }
+      &.tag-hottest {
+        background-color: var(--primaryDark);
+      }
+      &.tag-cheaper {
+        background-color: var(--primaryDefault);
+      }
+    }
   } //.adminContent End
 } //.adminBody End
 

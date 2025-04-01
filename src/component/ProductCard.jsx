@@ -19,19 +19,19 @@ const ProductCard = ({ product }) => {
       <div className="productCard">
         <div className="tagBox">
           {product.is_newest && (
-            <span className="tag textBody3 bg-info">
+            <span className="tag tag-newest textBody3">
               <span className="material-icons textBody2 me-1">verified</span>
               新品
             </span>
           )}
           {product.is_hottest && (
-            <span className="tag textBody3">
+            <span className="tag tag-hottest textBody3">
               <span className="material-icons textBody2 me-1">local_fire_department</span>
               TOP
             </span>
           )}
           {product.origin_price > product.price && (
-            <span className="tag textBody3 bg-primary">
+            <span className="tag tag-cheaper textBody3">
               <span className="material-icons textBody2 me-1">timer</span>
               限時優惠
             </span>
