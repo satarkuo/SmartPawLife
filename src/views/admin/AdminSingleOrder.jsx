@@ -16,7 +16,7 @@ const AdminSingleOrder = () => {
   const [userData, setUserData] = useState({}); //訂購人資料
   const [productsData, setProductsData] = useState([]); //已購買產品
   const [noCouponTotal, setNoCouponTotal] = useState(0); //結算未套用coupon以前的總金額
-  const [isChangeData, setIsChangeData] = useState(true); //有變更內容才取消 disabled submit按鈕
+  const [isChangeData, setIsChangeData] = useState(false); //是否有暫存變更資料，若有則提醒需儲存
 
   const initOrderData = () => {
     const singleOrder = orders[0].filter((item) => item.id === product_id);
@@ -41,7 +41,7 @@ const AdminSingleOrder = () => {
       //若type是checkbox則取得checked的值，否則取得value的值
       [name]: type === 'checkbox' ? checked : value,
     }));
-    setIsChangeData(false);
+    setIsChangeData(true);
   };
 
   //暫存變更：訂購人資料
@@ -51,7 +51,7 @@ const AdminSingleOrder = () => {
       ...prevData,
       [name]: value,
     }));
-    setIsChangeData(false);
+    setIsChangeData(true);
   };
 
   //暫存變更：變更產品數量，並重新計算總金額
@@ -79,7 +79,7 @@ const AdminSingleOrder = () => {
       ...prevData,
       total: final_total,
     }));
-    setIsChangeData(false);
+    setIsChangeData(true);
   };
   const handleProductDelete = (id) => {
     //filter留下指定id以外的產品
@@ -94,6 +94,7 @@ const AdminSingleOrder = () => {
       ...prevData,
       total: final_total,
     }));
+    setIsChangeData(true);
   };
 
   //開啟modal：變更訂單確認
@@ -117,7 +118,7 @@ const AdminSingleOrder = () => {
   return (
     <>
       <section className="position-relative">
-        {isChangeData === false && (
+        {isChangeData && (
           <div
             className="position-fixed px-4 py-3 bg-danger text-white rounded-4 opacity-75 d-flex align-items-center"
             style={{ top: '1.5rem', right: '1.5rem', width: 'calc(100vw - 3rem - 260px)' }}
@@ -128,7 +129,7 @@ const AdminSingleOrder = () => {
         )}
         <div
           className="p-4 bg-white rounded-4 mb-4"
-          style={{ marginTop: isChangeData === false ? '5rem' : '0' }}
+          style={{ marginTop: isChangeData ? '5rem' : '0' }}
         >
           <div className="d-flex align-items-center mb-4">
             <h1 className="h4 my-0 me-3">訂單管理</h1>

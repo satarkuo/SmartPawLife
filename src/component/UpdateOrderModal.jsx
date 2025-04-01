@@ -48,7 +48,7 @@ function UpdateOrderModal({ data, setData, isOpen, setIsOpen, setIsChangeData })
           type: 'success',
         })
       );
-      setIsChangeData(true);
+      setIsChangeData(false);
     } catch (error) {
       dispatch(
         pushMessage({
