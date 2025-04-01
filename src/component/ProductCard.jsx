@@ -134,7 +134,7 @@ const ProductCard = ({ product }) => {
                   type="radio"
                   id={`${product.id}-color-${index + 1}`}
                   value={color.colorName}
-                  name="color"
+                  name={`color-${product.id}`}
                   className="form-check-input d-none"
                   onChange={() => handleColorChange(product.id, color.colorName, color.colorCode)}
                   checked={color.colorName === selectedColor.colorName}
