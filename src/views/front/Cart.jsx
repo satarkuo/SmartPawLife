@@ -6,12 +6,14 @@ import ReactLoading from 'react-loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCartData } from '../../redux/cartSlice';
 import useScreenSize from '../../hooks/useScreenSize';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { setOrderData } from '../../redux/orderSlice';
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const Cart = () => {
-  const dispatch = useDispatch({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //RWD:自訂hook
   const { screenWidth } = useScreenSize();
@@ -94,6 +96,8 @@ const Cart = () => {
       setIsScreenLoading(false);
     }
   };
+
+  // modal:確認是否清空購物車
   const confirmDeleteCartAll = () => {
     ConfirmAlert.fire({
       title: '確定要清空購物車嗎？',
@@ -104,7 +108,7 @@ const Cart = () => {
       }
     });
   };
-  //購物車：刪除全部一產品
+  //購物車：刪除全部產品
   const deleteCartAll = async () => {
     setIsLoading(true);
     try {
@@ -156,18 +160,16 @@ const Cart = () => {
   const checkout = async (data) => {
     setIsScreenLoading(true);
     try {
-      await axios.post(`${BASE_URL}/api/${API_PATH}/order`, { data });
-      ToastAlert.fire({
-        icon: 'success',
-        title: `訂單已送出`,
-        text: `將盡快為您出貨`,
-      });
+      const res = await axios.post(`${BASE_URL}/api/${API_PATH}/order`, { data });
+      const id = res.data.orderId;
+      dispatch(setOrderData(data));
       getCartList();
       reset(); //清空表單
+      navigate(`/orderSuccess/${id}`);
     } catch (error) {
       ToastAlert.fire({
         icon: 'error',
-        title: `訂單送出失敗`,
+        title: `訂單送出錯誤，請重新嘗試`,
         text: error,
       });
     } finally {
@@ -512,7 +514,7 @@ const Cart = () => {
                   ></textarea>
                 </div>
                 <div className="d-flex flex-column flex-lg-row gap-4 mb-3">
-                  <span className="d-flex align-content-center">
+                  <span className="d-flex align-content-center" style={{ minWidth: '90px' }}>
                     <span className="text-primary fs-5 me-2">*</span>付款方式
                   </span>
                   <div className="d-flex flex-column flex-fill gap-3 ps-4">

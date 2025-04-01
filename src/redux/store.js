@@ -5,6 +5,7 @@ import adminOrderReducer from './admin/adminOrderSlice';
 import searchReducer from './searchSlice';
 import productReducer from './productSlice';
 import favoriteReducer from './favoriteListSlice';
+import orderReducer from './orderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     search: searchReducer,
     product: productReducer,
     favorite: favoriteReducer,
+    order: orderReducer,
   },
 });
 

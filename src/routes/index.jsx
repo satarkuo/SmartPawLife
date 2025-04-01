@@ -15,6 +15,7 @@ import AdminSingleOrder from '../views/admin/AdminSingleOrder';
 import SearchProductResult from '../views/front/SearchProductResult';
 import ProductLayout from '../layout/ProductLayout';
 import Favorite from '../views/front/Favorite';
+import CreateOrderSuccess from '../views/front/CreateOrderSuccess';
 
 const router = createHashRouter([
   {
@@ -46,6 +47,10 @@ const router = createHashRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'orderSuccess/:id',
+        element: <CreateOrderSuccess />,
       },
       {
         path: 'about',
