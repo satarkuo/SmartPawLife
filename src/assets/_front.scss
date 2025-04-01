@@ -895,10 +895,10 @@ section.cartList {
         position: relative;
         display: flex;
         flex-direction: column;
-        padding: 4px 12px;
+        padding: 8px;
         border-radius: 12px;
         background-color: var(--primaryPestel);
-        margin-bottom: 40px;
+        margin-bottom: 20px;
 
         td {
           display: flex;
@@ -920,7 +920,7 @@ section.cartList {
           &:before {
             display: inline-flex;
             content: attr(data-label);
-            font-weight: bold;
+            font-weight: normal;
             color: var(--secondaryDark);
             font-size: 14px;
             margin-right: 12px;
@@ -929,6 +929,7 @@ section.cartList {
 
           &:first-child:before {
             width: 0;
+            margin: 0 !important;
           }
         }
       }
