@@ -199,10 +199,7 @@ const ProductLayout = () => {
   // 點選 header nav、breadcrumb 的產品列表時
   // 強制切換分類為全部、並取消所有篩選分類
   useEffect(() => {
-    if (
-      location.pathname.includes('/productList/all') ||
-      location.pathname.includes('/productList/favorite')
-    ) {
+    if (location.pathname.includes('/productList/all')) {
       setFiltersData(filterDefault);
     }
   }, [location.pathname, filterDefault, navigate]);
@@ -306,8 +303,7 @@ const ProductLayout = () => {
                       className={`btn categoryBtn ${filtersData.category === '全部' ? 'active' : ''}`}
                       onClick={() => handleCategoryClick('全部')}
                     >
-                      <span className="material-icons">list</span>
-                      <span className="d-none d-md-block">全部</span>
+                      <span className="material-icons">list</span>全部產品
                     </button>
                   </li>
                   <li>
@@ -316,7 +312,7 @@ const ProductLayout = () => {
                       className={`btn categoryBtn ${filtersData.category === '智能戶外系列' ? 'active' : ''}`}
                       onClick={() => handleCategoryClick('智能戶外系列')}
                     >
-                      <span className="material-icons">light_mode</span>智能戶外系列
+                      <span className="material-icons">light_mode</span>智能戶外
                     </button>
                   </li>
                   <li>
@@ -325,7 +321,7 @@ const ProductLayout = () => {
                       className={`btn categoryBtn ${filtersData.category === '質感室內系列' ? 'active' : ''}`}
                       onClick={() => handleCategoryClick('質感室內系列')}
                     >
-                      <span className="material-icons">home</span>質感室內系列
+                      <span className="material-icons">home</span>質感室內
                     </button>
                   </li>
                 </ul>

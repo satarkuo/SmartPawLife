@@ -37,10 +37,6 @@ const router = createHashRouter([
             path: 'search/:search',
             element: <SearchProductResult />,
           },
-          {
-            path: 'favorite',
-            element: <Favorite />,
-          },
         ],
       },
       {
@@ -54,6 +50,10 @@ const router = createHashRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: 'favorite',
+        element: <Favorite />,
       },
     ],
   },
