@@ -358,9 +358,9 @@ const ProductDetail = () => {
                   type="button"
                   disabled={isLoading}
                   className="btn btn-primary-outline flex-fill d-flex align-items-center justify-content-center gap-2"
-                  onClick={() => addCardItem(tempProduct.id, qtySelect, selectedColor, 'checkout')}
+                  onClick={() => addCardItem(tempProduct.id, qtySelect, selectedColor, 'shopping')}
                 >
-                  直接購買
+                  加入購物車
                   {isLoading && (
                     <ReactLoading type={'spin'} color={'#000'} height={'1.2rem'} width={'1.2rem'} />
                   )}
@@ -369,9 +369,9 @@ const ProductDetail = () => {
                   type="button"
                   disabled={isLoading}
                   className="btn btn-primary flex-fill d-flex align-items-center justify-content-center gap-2"
-                  onClick={() => addCardItem(tempProduct.id, qtySelect, selectedColor, 'shopping')}
+                  onClick={() => addCardItem(tempProduct.id, qtySelect, selectedColor, 'checkout')}
                 >
-                  加入購物車
+                  直接購買
                   {isLoading && (
                     <ReactLoading type={'spin'} color={'#000'} height={'1.2rem'} width={'1.2rem'} />
                   )}
