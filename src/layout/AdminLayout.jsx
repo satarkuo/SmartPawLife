@@ -53,6 +53,8 @@ const AdminLayout = () => {
     setIsScreenLoading(true);
     try {
       const res = await axios.post(`${BASE_URL}/logout`);
+      document.cookie =
+        'apiToken=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/SmartPawLife'; //清除cookie 中的 token
       ToastAlert.fire({
         icon: 'success',
         title: '帳號已登出',
