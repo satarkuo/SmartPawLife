@@ -301,7 +301,13 @@ const ProductDetail = () => {
                         <div className="d-flex flex-column">
                           <span
                             className="colorSquare"
-                            style={{ backgroundColor: color.colorCode }}
+                            style={{
+                              backgroundColor: color.colorCode,
+                              border:
+                                color.colorName === selectedColor.colorName
+                                  ? '2px solid #e69370'
+                                  : '1px solid #b6b6b6',
+                            }}
                           ></span>
                           <small
                             style={{
