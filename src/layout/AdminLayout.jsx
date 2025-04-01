@@ -7,8 +7,6 @@ import ReactLoading from 'react-loading';
 import { useDispatch } from 'react-redux';
 import { pushMessage } from '../redux/toastSlice';
 
-import '../assets/admin.scss';
-
 const { VITE_BASE_URL: BASE_URL } = import.meta.env;
 
 const routesNav = [

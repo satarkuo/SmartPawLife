@@ -14,7 +14,6 @@ import line from '../assets/img/front/icon-line.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import '../assets/front.scss';
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
