@@ -7,6 +7,9 @@ const ToastAlert = Swal.mixin({
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
+  customClass: {
+    title: 'textBody3',
+  },
   didOpen: (toast) => {
     toast.onmouseenter = Swal.stopTimer;
     toast.onmouseleave = Swal.resumeTimer;

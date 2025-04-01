@@ -285,7 +285,7 @@ const ProductLayout = () => {
                   <button
                     type="text"
                     key={tag}
-                    className="badge rounded-pill border-0 text-secondary"
+                    className="badge rounded-pill border-0 textBody3 py-1"
                     onClick={() => {
                       handleTagSearch(tag);
                     }}
