@@ -162,11 +162,15 @@ const ProductDetail = () => {
               首頁
               <span className="material-icons-outlined"></span>
             </Link>
-            <Link className="breadLink" to="/productList">
+            <Link className="breadLink" to="/productList/all">
               智能產品
               <span className="material-icons-outlined"></span>
             </Link>
-            <Link className="breadLink" to={`/productList/${tempProduct.category}`}>
+            <Link
+              className="breadLink"
+              to={`/productList/search/${tempProduct.category}`}
+              state={{ from: 'ProductDetailPage' }}
+            >
               {tempProduct.category}
               <span className="material-icons-outlined"></span>
             </Link>

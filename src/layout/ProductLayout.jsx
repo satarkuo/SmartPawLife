@@ -221,6 +221,14 @@ const ProductLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 來自產品詳細頁 productDetail.jsx 的 breadcrumb，選擇產品分類的邏輯處理
+  useEffect(() => {
+    if (location.state?.from === 'ProductDetailPage') {
+      handleCategoryClick(params.search);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
+
   return (
     <>
       <section className="productListPage">
