@@ -26,7 +26,7 @@ const routesNav = [
 const routesLinks = [
   { path: '/productList/favorite', name: '收藏清單', icon: 'favorite', newTab: false },
   { path: '/cart', name: '購物車', icon: 'shopping_cart', newTab: false },
-  { path: '/login', name: '登入管理', icon: 'person', newTab: true },
+  //{ path: '/login', name: '登入管理', icon: 'person', newTab: true },
 ];
 const routesSocialMediaLinks = [
   { path: '/', name: 'FB', icon: fb, newTab: true },
