@@ -63,7 +63,7 @@ const About = () => {
                       className="align-self-center"
                     />
                   ) : (
-                    <span className="material-icons align-content-center fs-4">{item.icon}</span>
+                    <span className="material-icons align-self-center fs-4">{item.icon}</span>
                   )}
                 </span>
               </span>
@@ -88,7 +88,7 @@ const About = () => {
               <span>品牌故事</span>
             </span>
           </h2>
-          <ul className="d-flex flex-column" style={{ gap: '36px' }}>
+          <ul className="d-flex flex-column col-lg-6 m-auto" style={{ gap: '36px' }}>
             <li>
               <p
                 className={`${isMobile ? 'textBody2' : 'textBody1'} m-0`}
