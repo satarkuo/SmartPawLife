@@ -188,7 +188,7 @@ const Home = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="text-end">
+          <div className="text-center text-md-end">
             <button
               type="text"
               className="btn btn-primary d-inline-flex"
@@ -277,7 +277,7 @@ const Home = () => {
                   </Swiper>
                 </div>
               </div>
-              <div className="col-md-6 p-2 py-4 ps-md-4 ps-lg-5 d-flex flex-column justify-content-center gap-2 gap-md-4 gap-lg-5">
+              <div className="col-md-6 py-4 d-flex flex-column justify-content-center gap-3 gap-md-4 gap-lg-5">
                 <div>
                   <h2 className={`${isMobile ? 'h4' : 'h2'} text-primary`}>
                     {hottestProduct.title}
@@ -287,10 +287,10 @@ const Home = () => {
                 <div className={isMobile ? 'textBody3' : 'textBody1'}>
                   <div dangerouslySetInnerHTML={{ __html: hottestProduct.content }} />
                 </div>
-                <div className="text-end">
+                <div className="text-center text-md-end">
                   <button
                     type="text"
-                    className="btn btn-primary-outline d-flex d-md-inline-flex justify-content-center"
+                    className="btn btn-primary-outline d-inline-flex justify-content-center"
                     onClick={() => handleButtonFilterProducts('is_hottest')}
                   >
                     更多熱門
@@ -378,7 +378,7 @@ const Home = () => {
                   </Swiper>
                 </div>
               </div>
-              <div className="col-md-6 p-2 py-4 pe-md-4 pe-lg-5 d-flex flex-column justify-content-center gap-2 gap-md-4 gap-lg-5">
+              <div className="col-md-6 py-4 d-flex flex-column justify-content-center gap-3 gap-md-4 gap-lg-5">
                 <div>
                   <h2 className={`${isMobile ? 'h4' : 'h2'} text-primary`}>
                     {newestProduct.title}
@@ -388,10 +388,10 @@ const Home = () => {
                 <div className={isMobile ? 'textBody3' : 'textBody1'}>
                   <div dangerouslySetInnerHTML={{ __html: newestProduct.content }} />
                 </div>
-                <div className="text-end">
+                <div className="text-center text-md-end">
                   <button
                     type="text"
-                    className="btn btn-primary-outline d-flex d-md-inline-flex justify-content-center"
+                    className="btn btn-primary-outline d-inline-flex justify-content-center"
                     onClick={() => handleButtonFilterProducts('is_newest')}
                   >
                     更多新品
