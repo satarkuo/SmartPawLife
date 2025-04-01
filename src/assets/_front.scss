@@ -8,7 +8,7 @@ header.frontHeader {
   }
 }
 
-@media (max-width: 767px) {
+@include media-breakpoint-down(md) {
   header.frontHeader {
     padding: 0;
   }
@@ -54,7 +54,7 @@ header.frontHeader {
   background-image: url('img/front/bg-wave4.png');
   background-color: var(--gray0);
 
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(md) {
     & {
       background-size: 100% 24px;
       padding-top: 66px;
@@ -314,7 +314,7 @@ section.homePage {
     max-height: 180px;
     object-fit: cover;
   }
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(md) {
     .discountSwiper {
       padding-right: 20%;
     }
@@ -326,7 +326,7 @@ section.homePage {
     background-size: contain;
     background-repeat: no-repeat;
   }
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(md) {
     .bg-wave {
       background-size: 100% 24px;
     }
@@ -375,7 +375,7 @@ section.homePage {
     }
   }
 
-  @media (max-width: 1399px) {
+  @include media-breakpoint-down(xxl) {
     .product-gallery {
       gap: 12px;
       flex-direction: column;
@@ -417,7 +417,7 @@ section.productListPage {
       }
     }
   }
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(md) {
     .categoryNavRWD {
       overflow-x: auto; /* 啟用水平滾動 */
       white-space: nowrap; /* 防止換行 */
@@ -435,7 +435,7 @@ section.productListPage {
     max-width: 200px;
     margin-bottom: 40px;
 
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         max-width: none;
         display: flex;
@@ -454,7 +454,7 @@ section.productListPage {
       background-color: var(--gray0);
       border-radius: 12px;
       border: 0;
-      @media (max-width: 767px) {
+      @include media-breakpoint-down(md) {
         & {
           gap: 8px;
           padding: 8px;
@@ -473,7 +473,7 @@ section.productListPage {
     max-width: 200px;
     display: flex;
 
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         max-width: 100%;
       }
@@ -512,14 +512,15 @@ section.productDetail {
     width: 100%;
     max-width: 526px;
 
-    @media (max-width: 991px) and (min-width: 768px) {
+    @include media-breakpoint-only(md) {
       & {
         max-width: 350px;
       }
     }
-    @media (max-width: 991px) {
+    @include media-breakpoint-down(lg) {
       & {
         max-width: auto;
+        gap: 12px;
       }
     }
 
@@ -578,7 +579,7 @@ section.productDetail {
     }
   }
 
-  @media (max-width: 1399px) {
+  @include media-breakpoint-down(xxl) {
     .productDetail-gallery {
       .main-swiper {
         max-width: 100%;
@@ -679,7 +680,7 @@ section.productDetail {
       color: var(--gray4);
       border-top: 1px solid var(--gray2);
       border-bottom: 1px solid var(--gray2);
-      @media (max-width: 575px) {
+      @include media-breakpoint-down(sm) {
         & {
           width: 100%;
         }
@@ -689,7 +690,7 @@ section.productDetail {
   .tabBox {
     margin-top: 64px;
     margin-bottom: 120px;
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         margin-top: 48px;
         margin-bottom: 60px;
@@ -713,7 +714,7 @@ section.productDetail {
   }
 
   .hottestSwiper {
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         padding-right: 20%;
       }
@@ -833,7 +834,7 @@ section.cartList {
       justify-content: center;
     }
 
-    @media (max-width: 991px) {
+    @include media-breakpoint-down(lg) {
       tr {
         position: relative;
         display: flex;

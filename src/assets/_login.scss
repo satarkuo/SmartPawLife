@@ -13,7 +13,7 @@
     color: #fff;
     border-radius: 16px;
     opacity: 0.9;
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         top: calc(80px + 1rem);
       }
@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         height: auto;
         padding: 20px;
@@ -45,7 +45,7 @@
     background-size: cover;
     background-position: center right;
     height: 100vh;
-    @media (max-width: 767px) {
+    @include media-breakpoint-down(md) {
       & {
         height: calc(100vh - 80px);
       }
