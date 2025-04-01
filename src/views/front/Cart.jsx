@@ -192,7 +192,7 @@ const Cart = () => {
   return (
     <>
       <div className="container">
-        <section className="cartList py-5 mb-5" id="cartList">
+        <section className="cartList py-5 mb-md-5" id="cartList">
           <h2 className={`${isMobile ? 'h3' : 'h2'} text-center mb-5`}>
             <span className="titleUnderline">
               <span>購物車</span>
@@ -242,10 +242,8 @@ const Cart = () => {
                       </td>
                       <td data-label="標題">{cart.product.title}</td>
                       <td data-label="顏色">
-                        <div className="d-inline-flex ">
-                          <small className="text-secondary align-content-center lh-1">
-                            {cart.color.colorName}
-                          </small>
+                        <div className="d-inline-flex align-items-center">
+                          <small className="text-secondary  lh-1">{cart.color.colorName}</small>
                           <span
                             className="colorSquare m-0 ms-2"
                             style={{
@@ -268,13 +266,13 @@ const Cart = () => {
                         <div className="d-flex flex-fill justify-content-end align-items-center">
                           <button
                             type="button"
-                            className="btn btn-primary-outline btn-sm p-0 ps-2 d-flex rounded-end jystify-content-center"
+                            className="btn btn-primary-outline btn-sm p-0 ps-2 d-flex align-items-center rounded-end"
                             style={{ width: '32px', height: '32px' }}
                             onClick={() =>
                               updateCart(cart.id, cart.product.title, cart.qty - 1, cart.color)
                             }
                           >
-                            <span className="material-icons align-content-center fs-6">remove</span>
+                            <span className="material-icons fs-6">remove</span>
                           </button>
                           <span
                             className="text-center border-top border-bottom px-3 py-1 bg-white"
@@ -284,13 +282,13 @@ const Cart = () => {
                           </span>
                           <button
                             type="button"
-                            className="btn btn-primary-outline btn-sm p-0 ps-1 d-flex rounded-start jystify-content-center"
+                            className="btn btn-primary-outline btn-sm p-0 ps-1 d-flex align-items-center rounded-start"
                             style={{ width: '32px', height: '32px' }}
                             onClick={() =>
                               updateCart(cart.id, cart.product.title, cart.qty + 1, cart.color)
                             }
                           >
-                            <span className="material-icons align-content-center fs-6">add</span>
+                            <span className="material-icons fs-6">add</span>
                           </button>
                           <span className="textBody3 border-0 pe-0 ms-1">{cart.product.unit}</span>
                         </div>
@@ -318,7 +316,7 @@ const Cart = () => {
                           className="btn btn-primary-outline btn-sm px-2 deleteBtn"
                           onClick={() => deleteCart(cart.id, cart.product.title)}
                         >
-                          <span className="material-icons align-content-center fs-6">clear</span>
+                          <span className="material-icons align-self-center fs-6">clear</span>
                           {isMobile && '刪除'}
                         </button>
                       </td>
