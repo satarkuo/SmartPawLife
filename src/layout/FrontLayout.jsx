@@ -107,7 +107,6 @@ const FrontLayout = () => {
                       to={route.path}
                       className="nav-link px-2 d-flex align-items-center justify-content-center"
                       onClick={toggleNavbar}
-                      key={route.path}
                       {...(route.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     >
                       {route.name === '購物車'
