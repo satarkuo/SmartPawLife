@@ -19,7 +19,7 @@ import '../assets/front.scss';
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
 const routesNav = [
-  { path: '/', name: '首頁' },
+  //{ path: '/', name: '首頁' },
   { path: '/productList/all', name: '智能產品' },
   { path: '/about', name: '關於SmartPaw Life' },
 ];
