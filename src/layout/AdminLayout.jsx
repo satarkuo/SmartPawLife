@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import logoHeader from '../assets/img/admin/LogoHeader.svg';
 import { ToastAlert } from '../utils/sweetAlert';
 import axios from 'axios';
@@ -88,9 +88,9 @@ const AdminLayout = () => {
     <div className="adminBody">
       <header className="adminHeader fixed-left border-bottom pb-3">
         <div className="d-flex flex-column h-100">
-          <a href="#" className="d-flex align-items-center text-decoration-none p-4">
+          <Link to="/admin/product" className="d-flex align-items-center text-decoration-none p-4">
             <img src={logoHeader} alt="logo" />
-          </a>
+          </Link>
           <ul className="nav flex-column flex-fill w-100">
             {routesNav.map((route) => (
               <li key={route.path}>
