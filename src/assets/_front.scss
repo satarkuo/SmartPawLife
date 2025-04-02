@@ -6,6 +6,36 @@ header.frontHeader {
   .navbar-nav a.nav-link.active {
     color: var(--primaryDefault);
   }
+
+  .searchBar {
+    width: 180px;
+    display: flex;
+
+    @include media-breakpoint-down(md) {
+      & {
+        width: 100%;
+      }
+    }
+
+    .input {
+      border-radius: 8px;
+    }
+    &.active .input {
+      border-radius: 8px 0 0 8px;
+      border-right: 0;
+    }
+    .btn {
+      display: none;
+      align-content: center;
+      border-radius: 0 8px 8px 0;
+      padding: 8px;
+      opacity: 0;
+    }
+    &.active .btn {
+      display: flex;
+      opacity: 1;
+    }
+  }
 }
 
 @include media-breakpoint-down(md) {

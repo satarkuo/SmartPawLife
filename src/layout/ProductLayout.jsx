@@ -114,6 +114,7 @@ const ProductLayout = () => {
       }
       dispatch(setFilterProducts(result)); //帶入搜尋結果，渲染UI
       dispatch(setSingleFilter('')); //清空首頁使用的RTK搜尋條件 setSingleFilter
+      return;
     } else if (searchValue !== '') {
       //首頁若有搜尋則帶出搜尋結果
       let result = [...allProducts];
@@ -121,6 +122,7 @@ const ProductLayout = () => {
       result = result.filter((product) => product.title.includes(searchValue));
       dispatch(setFilterProducts(result)); //帶入搜尋結果，渲染UI
       dispatch(setSearchValue('')); //清空首頁使用的RTK搜尋欄位 searchValue
+      return;
     } else {
       // 若皆無則進行篩選初始化，預設篩選條件顯示全部產品
       let result = [...allProducts];
@@ -128,6 +130,7 @@ const ProductLayout = () => {
         Object.values(filters).every((filter) => filter(product))
       );
       dispatch(setFilterProducts(result));
+      return;
     }
   }, [singleFilter, searchValue, allProducts, dispatch, filters]);
 
@@ -222,6 +225,13 @@ const ProductLayout = () => {
   useEffect(() => {
     if (location.state?.from === 'ProductDetailPage') {
       handleCategoryClick(params.search);
+    }
+    if (location.state?.from === 'allPagesSearch') {
+      setFiltersData(filterDefault);
+      let result = [...allProducts];
+      result = result.filter((product) => product.title.includes(searchValue));
+      dispatch(setFilterProducts(result));
+      //dispatch(setSearchValue(''));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state]);

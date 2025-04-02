@@ -17,7 +17,9 @@ const SearchProductResult = () => {
     <div>
       <div className="mb-5">
         <h1 className={`${isMobile ? 'h4' : 'h3'}  mt-0 text-primary`}>
-          {productInfoData[search]?.title ? productInfoData[search].title : `關鍵字結果：${search}`}
+          {productInfoData[search]?.title
+            ? productInfoData[search].title
+            : `關鍵字搜尋結果：${search}`}
         </h1>
         {productInfoData[search]?.content && (
           <div className={isMobile ? 'textBody2' : 'textBody1'}>

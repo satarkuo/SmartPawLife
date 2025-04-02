@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import logoHeader from '../assets/img/front/LogoHeader.svg';
 import useScreenSize from '../hooks/useScreenSize';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import line from '../assets/img/front/icon-line.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { setSearchValue } from '../redux/searchSlice';
 
 const { VITE_BASE_URL: BASE_URL, VITE_API_PATH: API_PATH } = import.meta.env;
 
@@ -43,8 +44,10 @@ const FrontLayout = () => {
     }
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //取得購物車API資料
-  const dispatch = useDispatch({});
   const getCartList = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/${API_PATH}/cart`);
@@ -74,6 +77,28 @@ const FrontLayout = () => {
       behavior: 'smooth',
     });
   }, [pathname, search]); //監聽 pathname 和 ?page= 換頁變化
+
+  //RTK取得：搜尋關鍵字
+  const searchValue = useSelector((state) => state.search.searchValue);
+
+  // input：儲存關鍵字
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    dispatch(setSearchValue(value));
+  };
+
+  // input：送出搜尋關鍵字
+  const handleFilterProducts = () => {
+    toggleNavbar();
+    if (searchValue !== '') {
+      navigate(`/productList/search/${searchValue}`, { state: { from: 'allPagesSearch' } });
+    } else {
+      ToastAlert.fire({
+        icon: 'error',
+        title: '請先輸入搜尋關鍵字',
+      });
+    }
+  };
 
   return (
     <>
@@ -131,6 +156,20 @@ const FrontLayout = () => {
                   </li>
                 ))}
               </ul>
+              <div className={`searchBar mt-3 mt-md-0 ms-md-3 ${searchValue ? 'active' : ''}`}>
+                <input
+                  type="search"
+                  placeholder="搜尋商品"
+                  value={searchValue}
+                  className="input px-3"
+                  onChange={handleInputChange}
+                />
+                <button type="submit" className="btn btn-primary" onClick={handleFilterProducts}>
+                  <span className="material-icons-outlined fs-5 align-self-center">
+                    arrow_forward
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </nav>
