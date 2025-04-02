@@ -158,9 +158,9 @@ npm run dev
 
 - 前端：Satar Kuo
 
-- 後台設計：Satar Kuo (使用Figma)
+- 後台設計：Satar Kuo
 
-- 前台設計：Ｍillie Qiu
+- 前台設計：Ｍillie Qiu 設計師
 
 - 使用六角React專題課程API進行開發，如有建議或想法歡迎 Issue 或聯絡我！
 
@@ -173,6 +173,16 @@ npm run dev
 - 專題教練：Yennefer教練
 
 - 課程助教：Jay助教、傑利助教
+
+## 🛠️ 專案修改需求紀錄
+
+- 專題批改助教：傑利助教
+
+- 專題批改設計師：Jamie 設計師
+
+- 根據助教與設計師指導建議進行修改，並以文件記錄處理方式
+
+- [🔗 20250331-修改需求](https://wax-gladiolus-68e.notion.site/20250331-1c71186c0f56801982dde281079f4424?pvs=4)
 
 ---
 
