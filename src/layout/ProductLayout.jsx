@@ -33,7 +33,7 @@ const ProductLayout = () => {
 
   //RWD:自訂hook
   const { screenWidth } = useScreenSize();
-  const isMobile = screenWidth < 640; // 螢幕寬 < 640，返回true，否則返回false
+  const isMobile = screenWidth < 768; // 螢幕寬 < 768，返回true，否則返回false
 
   //RTK取得：全部產品列表
   const allProducts = useSelector((state) => state.product.allProducts);
@@ -41,6 +41,14 @@ const ProductLayout = () => {
   const searchValue = useSelector((state) => state.search.searchValue);
   //RTK取得：首頁送出的的單一filter
   const singleFilter = useSelector((state) => state.search.singleFilter);
+
+  //篩選條件展開收合
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const toggleNavbar = () => {
+    if (screenWidth <= 767) {
+      setIsFilterOpen(!isFilterOpen);
+    }
+  };
 
   //篩選條件預設值
   const filterDefault = useMemo(
@@ -304,7 +312,11 @@ const ProductLayout = () => {
                   </button>
                 ))}
               </div>
-              <h6 className="h6 mb-3 d-none d-md-block">產品分類</h6>
+              <h6 className="h6 mb-1 mb-md-3 textBody2 d-none d-md-block">
+                <span className="d-flex align-items-center">
+                  <span className="material-icons-outlined textBody2 me-1">pets</span>產品分類
+                </span>
+              </h6>
               <div className="categoryNavRWD">
                 <ul className="categoryNav">
                   <li>
@@ -336,35 +348,65 @@ const ProductLayout = () => {
                   </li>
                 </ul>
               </div>
-              <h6 className="h6 mb-1 mb-md-3">主題篩選</h6>
-              <div className="categoryNavRWD">
-                <ul className="categoryNav">
+              <h6
+                className={`h6 mb-1 mb-md-3 textBody2 toggleFilter ${isFilterOpen ? 'active' : ''}`}
+                onClick={() => toggleNavbar()}
+              >
+                <span className="d-flex align-items-center">
+                  <span className="material-icons-outlined textBody2">filter_alt</span>主題篩選
+                </span>
+                {isMobile && (
+                  <span className="material-icons-outlined textBody2 arrow">
+                    keyboard_arrow_down
+                  </span>
+                )}
+              </h6>
+              <div className={`categoryNavRWD toggleFilterItems ${isFilterOpen ? 'active' : ''}`}>
+                <ul className="categoryNav m-0">
                   <li>
-                    <button
-                      type="button"
-                      className={`btn categoryBtn ${filtersData.is_newest || params.search === '新品報到' ? 'active' : ''}`}
-                      onClick={() => handleFilterClick('is_newest')}
-                    >
-                      <span className="material-icons">verified</span>新品報到
-                    </button>
+                    <div className="form-check p-0">
+                      <label
+                        className={`form-check-label btn categoryBtn ${filtersData.is_newest || params.search === '新品報到' ? 'active' : ''}`}
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-check-input ms-0"
+                          checked={filtersData.is_newest}
+                          onChange={() => handleFilterClick('is_newest')}
+                        />
+                        新品報到
+                      </label>
+                    </div>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      className={`btn categoryBtn ${filtersData.is_hottest || params.search === '冠軍排行' ? 'active' : ''}`}
-                      onClick={() => handleFilterClick('is_hottest')}
-                    >
-                      <span className="material-icons">local_fire_department</span>冠軍排行
-                    </button>
+                    <div className="form-check p-0">
+                      <label
+                        className={`form-check-label btn categoryBtn ${filtersData.is_hottest || params.search === '冠軍排行' ? 'active' : ''}`}
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-check-input ms-0"
+                          checked={filtersData.is_hottest}
+                          onChange={() => handleFilterClick('is_hottest')}
+                        />
+                        冠軍排行
+                      </label>
+                    </div>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      className={`btn categoryBtn ${filtersData.is_discounted || params.search === '限時搶購' ? 'active' : ''}`}
-                      onClick={() => handleFilterClick('is_discounted')}
-                    >
-                      <span className="material-icons">timer</span>限時搶購
-                    </button>
+                    <div className="form-check p-0">
+                      <label
+                        className={`form-check-label btn categoryBtn ${filtersData.is_discounted || params.search === '限時搶購' ? 'active' : ''}`}
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-check-input ms-0"
+                          checked={filtersData.is_discounted}
+                          onChange={() => handleFilterClick('is_discounted')}
+                        />
+                        限時搶購
+                      </label>
+                    </div>
                   </li>
                 </ul>
               </div>
