@@ -17,6 +17,7 @@ const routesNav = [
 
 const AdminLayout = () => {
   const [isScreenLoading, setIsScreenLoading] = useState(false); //全螢幕Loading
+  const [isAuth, setIsAuth] = useState(false); //登入狀態
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,8 +33,10 @@ const AdminLayout = () => {
 
   //驗證登入狀態
   const checkLogin = async () => {
+    setIsScreenLoading(true);
     try {
       await axios.post(`${BASE_URL}/api/user/check`);
+      setIsAuth(true);
     } catch (error) {
       dispatch(
         pushMessage({
@@ -46,6 +49,9 @@ const AdminLayout = () => {
         //replace: 驗證失敗時，不提供返回上頁頁面
         navigate('/login', { replace: true });
       }, 0);
+      setIsAuth(false);
+    } finally {
+      setIsScreenLoading(false);
     }
   };
   //登出
@@ -61,6 +67,7 @@ const AdminLayout = () => {
         text: res.data.message,
       });
       navigate('/login');
+      setIsAuth(false);
     } catch (error) {
       ToastAlert.fire({
         icon: 'error',
@@ -115,7 +122,7 @@ const AdminLayout = () => {
         </div>
       </header>
       <div className="adminContent" ref={adminContentRef}>
-        <Outlet />
+        {isAuth && <Outlet />}
       </div>
 
       {isScreenLoading && (
