@@ -1,0 +1,46 @@
+// abstracts 不會產出實體css的樣式
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/mixins';
+@import 'abstracts/variables';
+@import 'abstracts/variables-dark';
+
+// vendors 第三方樣式
+@import 'bootstrap/scss/bootstrap';
+@import 'material-icons/iconfont/material-icons.css';
+
+// base 基礎樣式
+@import 'base/reset';
+@import 'base/root-vars';
+@import 'base/fonts';
+@import 'base/scrollbar';
+@import 'base/typography';
+@import 'base/helpers';
+@import 'base/utilities';
+
+// components 元件樣式
+@import 'components/buttons';
+@import 'components/form';
+@import 'components/pagination';
+@import 'components/tab';
+@import 'components/productCard';
+@import 'components/breadcrumb';
+
+// layout 版型 - front
+@import 'layout/front/frontHeader';
+@import 'layout/front/frontContent';
+@import 'layout/front/frontFooter';
+
+// layout 版型 - admin
+@import 'layout/admin/adminLayout';
+@import 'layout/admin/adminHeader';
+@import 'layout/admin/adminContent';
+
+// pages 頁面
+@import 'pages/home';
+@import 'pages/productList';
+@import 'pages/productDetail';
+@import 'pages/about';
+@import 'pages/favorite';
+@import 'pages/cart';
+@import 'pages/orderSuccess';
+@import 'pages/login';

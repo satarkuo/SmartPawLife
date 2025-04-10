@@ -1,0 +1,25 @@
+//tab style
+.tabBox {
+  ul.nav.nav-pills {
+    button.nav-link {
+      background-color: var(--gray1);
+      color: var(--gray4);
+      margin-right: 16px;
+      padding: 12px;
+      border-radius: 12px;
+
+      &:hover,
+      &.active {
+        background-color: var(--primaryPestel);
+        color: var(--primaryDefault);
+      }
+    }
+  }
+  .tab-content.contentBox {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.04);
+    padding: 36px 24px;
+    line-height: 180%;
+  }
+}

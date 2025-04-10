@@ -1,0 +1,12 @@
+@font-face {
+  font-family: SweiGothicCJKtc-Regular;
+  src:
+    url(https://cdn.jsdelivr.net/gh/max32002/swei-gothic@2.129/WebFont/CJK%20TC/SweiGothicCJKtc-Regular.woff2)
+      format('woff2'),
+    url(https://cdn.jsdelivr.net/gh/max32002/swei-gothic@2.129/WebFont/CJK%20TC/SweiGothicCJKtc-Regular.woff)
+      format('woff');
+  font-display: swap; //改善字體載入時的閃爍狀況
+}
+body {
+  font-family: 'SweiGothicCJKtc-Regular', Arial, Helvetica, sans-serif;
+}

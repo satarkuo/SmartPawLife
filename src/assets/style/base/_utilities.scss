@@ -1,0 +1,12 @@
+// 與變數綁定 功能型class
+.bg-primaryPestel {
+  background-color: var(--primaryPestel);
+}
+
+a,
+a:hover {
+  color: var(--gray1);
+}
+a:hover {
+  color: #c0bcbc;
+}

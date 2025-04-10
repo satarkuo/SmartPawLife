@@ -1,0 +1,135 @@
+section.productListPage {
+  background-color: var(--gray0);
+
+  .swiperBanner {
+    position: relative;
+
+    .detail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--gray0);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .mobileMaxWidth {
+        max-width: 230px;
+        margin: 0 auto;
+      }
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .categoryNavRWD {
+      overflow-x: auto; /* 啟用水平滾動 */
+      white-space: nowrap; /* 防止換行 */
+      -webkit-overflow-scrolling: touch; /* 讓手機滑動更流暢 */
+
+      &::-webkit-scrollbar {
+        display: none; /* 隱藏滾動條 */
+      }
+    }
+  }
+  .tagList .badge {
+    background-color: var(--gray1);
+  }
+  ul.categoryNav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 200px;
+    margin-bottom: 40px;
+
+    @include media-breakpoint-down(md) {
+      & {
+        max-width: none;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+      }
+    }
+
+    .categoryBtn {
+      display: flex;
+      width: 100%;
+      align-content: center;
+      gap: 12px;
+      padding: 12px;
+      color: var(--primaryDefault);
+      background-color: var(--gray0);
+      border-radius: 12px;
+      border: 0;
+      @include media-breakpoint-down(md) {
+        & {
+          gap: 8px;
+          padding: 8px;
+        }
+      }
+
+      &.active,
+      &:hover {
+        background-color: var(--primaryPestel);
+        border: 0;
+      }
+    }
+  }
+
+  .searchBar {
+    max-width: 200px;
+    display: flex;
+
+    @include media-breakpoint-down(md) {
+      & {
+        max-width: 100%;
+      }
+    }
+
+    .input {
+      border-radius: 8px;
+    }
+    &.active .input {
+      border-radius: 8px 0 0 8px;
+      border-right: 0;
+    }
+    .btn {
+      display: none;
+      align-content: center;
+      border-radius: 0 8px 8px 0;
+      padding: 8px;
+      opacity: 0;
+    }
+    &.active .btn {
+      display: flex;
+      opacity: 1;
+    }
+  }
+
+  .toggleFilter {
+    display: flex;
+    align-content: center;
+    //justify-content: space-between;
+
+    .arrow {
+      transition-duration: 0.3s;
+    }
+    &.active .arrow {
+      transform: rotate(180deg);
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .toggleFilterItems {
+      height: 0;
+      overflow-y: hidden;
+      margin: 0;
+      opacity: 0;
+      transition-duration: 0.3s;
+
+      &.active {
+        opacity: 1;
+        height: auto;
+        margin-top: 8px;
+      }
+    }
+  }
+} //end of productList

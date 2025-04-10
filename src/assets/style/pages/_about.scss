@@ -1,0 +1,90 @@
+//---pageStyle ---- About.jsx 關於我們
+section.aboutPage {
+  background-color: var(--gray0);
+  //swiper  - aboutPage Banner
+  .swiperBanner {
+    position: relative;
+
+    .detail {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--gray0);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  ul.timeLine {
+    padding: 36px;
+    background-color: var(--white);
+    border: 8px;
+    box-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.04);
+
+    @media (max-width: 640px) {
+      & {
+        padding: 12px;
+      }
+    }
+
+    li {
+      position: relative;
+      display: flex;
+      gap: 24px;
+      //align-items: center;
+      padding-bottom: 36px;
+      //overflow: hidden;
+
+      &:after {
+        display: inline-block;
+        content: '';
+        width: 1px;
+        height: 100%;
+        border-left: 1px solid var(--primaryLight);
+        position: absolute;
+        left: 112px;
+        top: 55%;
+      }
+      &:last-of-type:after {
+        display: none;
+      }
+      @media (max-width: 640px) {
+        & {
+          gap: 16px;
+        }
+        &:after {
+          left: 104px;
+          top: 55%;
+        }
+      }
+
+      .timeLineYear {
+        width: 64px;
+        min-width: 64px;
+        text-align: center;
+        align-self: center;
+      }
+      .con {
+        align-self: center;
+      }
+      .line-box {
+        display: flex;
+        align-content: center;
+
+        .iconBox {
+          display: inline-flex;
+          justify-content: center;
+          align-self: center;
+          width: 48px;
+          min-width: 48px;
+          height: 48px;
+          border-radius: 100%;
+          background-color: var(--primaryPestel);
+          color: var(--primaryDark);
+        }
+      }
+    }
+  }
+} //end of aboutPage

@@ -85,7 +85,7 @@ const AdminLayout = () => {
   }, [pathname, search]); //監聽 pathname 和 ?page= 換頁變化
 
   return (
-    <div className="adminBody">
+    <div className="adminLayout">
       <header className="adminHeader fixed-left border-bottom pb-3">
         <div className="d-flex flex-column h-100">
           <Link to="/admin/product" className="d-flex align-items-center text-decoration-none p-4">

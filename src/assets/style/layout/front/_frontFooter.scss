@@ -1,0 +1,12 @@
+footer.frontFooter {
+  padding: 48px 0;
+  background-color: var(--primaryPestel);
+
+  .navbar-nav a.nav-link:hover {
+    color: var(--primaryDefault);
+  }
+
+  & .copyright {
+    color: var(--gray2);
+  }
+}

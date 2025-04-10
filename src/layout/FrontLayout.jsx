@@ -175,7 +175,7 @@ const FrontLayout = () => {
         </nav>
       </header>
 
-      <div className="contentAll">
+      <div className="frontContent">
         <Outlet />
       </div>
 

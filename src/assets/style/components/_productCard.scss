@@ -1,0 +1,151 @@
+.productCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  border: 1px solid var(--gray0);
+  background-color: var(--white);
+  overflow: hidden;
+  transition-duration: 0.3s;
+
+  &:hover {
+    border: 1px solid var(--primaryDefault);
+  }
+
+  .tagBox {
+    position: absolute;
+    z-index: 2;
+    left: 12px;
+    top: 16px;
+    display: flex;
+    max-width: 200px;
+    flex-wrap: wrap;
+
+    .tag {
+      display: flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 4px 8px;
+      background-color: var(--primaryDark);
+      color: var(--gray0);
+      margin-right: 8px;
+      margin-bottom: 4px;
+      line-height: 0.875rem;
+
+      .material-icons {
+        color: var(--gray0);
+      }
+
+      &.tag-newest {
+        background-color: var(--primaryPestel);
+        color: var(--primaryDark);
+
+        .material-icons {
+          color: var(--primaryDark);
+        }
+      }
+      &.tag-hottest {
+        background-color: var(--primaryDark);
+      }
+      &.tag-cheaper {
+        background-color: var(--primaryDefault);
+      }
+    }
+  }
+  .favoriteBtn {
+    position: absolute;
+    z-index: 2;
+    right: 12px;
+    top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: var(--gray0);
+
+    &:after {
+      display: inline-block;
+      content: 'favorite_border';
+      color: var(--secondaryDark);
+    }
+    &.active:after {
+      content: 'favorite';
+      color: var(--primaryDefault);
+    }
+  }
+  .img-wrapper {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    img {
+      max-height: 230px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+  }
+  &:hover .img-wrapper img {
+    transform: scale(1.1);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px;
+    gap: 4px;
+    min-height: 76px;
+
+    .card-title {
+      color: var(--secondaryDark);
+    }
+    .card-text {
+      color: var(--gray3);
+      min-height: 48px;
+    }
+    .checkedStyle {
+      .form-check-input {
+        cursor: pointer;
+        outline: none;
+        box-shadow: none;
+
+        &:checked[type='radio'] {
+          display: block !important;
+          position: absolute;
+          margin-left: 0;
+          margin-top: 0;
+          --bs-form-check-bg-image: none;
+          border: 0;
+          background: none;
+          outline: none;
+        }
+        &:checked[type='radio']::before {
+          content: 'check'; //Material Icon
+          font-family: 'Material Icons';
+          font-size: 14px;
+          display: inline-block;
+          color: var(--gray0);
+          margin-left: 3px;
+        }
+      }
+
+      .form-check-label {
+        cursor: pointer;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px 12px;
+  }
+  &:hover .card-footer button.btn {
+    background-color: var(--primaryDefault);
+    color: var(--gray0);
+  }
+}

@@ -1,0 +1,35 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 24px 0 48px;
+
+  @media (max-width: 640px) {
+    & {
+      margin: 16px 0 24px;
+    }
+  }
+
+  .breadLink {
+    display: flex;
+    align-items: center;
+    color: var(--secondaryDark);
+
+    &:hover {
+      color: var(--primaryDefault);
+    }
+
+    .material-icons-outlined:after,
+    &:hover .material-icons-outlined:after {
+      display: inline-block;
+      content: 'keyboard_arrow_right';
+      width: 24px;
+      height: 24px;
+      color: var(--secondaryDark);
+    }
+
+    &:last-child {
+      color: var(--primaryDark);
+    }
+  }
+}

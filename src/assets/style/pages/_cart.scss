@@ -1,0 +1,78 @@
+//---pageStyle ---- Cart.jsx 購物車
+section.cartList {
+  .cartTable {
+    .deleteBtn {
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    @include media-breakpoint-down(lg) {
+      tr {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        border-radius: 12px;
+        background-color: var(--primaryPestel);
+        margin-bottom: 20px;
+
+        td {
+          display: flex;
+          align-items: center;
+          background-color: var(--primaryPestel);
+          border-color: var(--white);
+
+          .deleteBtn {
+            position: absolute;
+            right: 12px;
+            top: 32px;
+          }
+
+          &:last-child {
+            border: 0;
+            margin: 0 !important;
+          }
+
+          &:before {
+            display: inline-flex;
+            content: attr(data-label);
+            font-weight: normal;
+            color: var(--secondaryDark);
+            font-size: 14px;
+            margin-right: 12px;
+            width: 40px;
+          }
+
+          &:first-child:before {
+            width: 0;
+            margin: 0 !important;
+          }
+        }
+      }
+      tr.nodata {
+        border-radius: 0;
+        background: none;
+        border-top: 1px solid var(--gray1);
+        border-bottom: 1px solid var(--gray1);
+
+        & td {
+          background: none;
+          display: flex;
+          justify-content: center;
+        }
+
+        & td:before {
+          width: 0;
+        }
+      }
+    }
+  }
+} //end of cartList
+
+section.orderInfo {
+  .creditInfo {
+    background: var(--primaryPestel);
+    padding: 16px;
+    border-radius: 16px;
+  }
+} //end of orderInfo

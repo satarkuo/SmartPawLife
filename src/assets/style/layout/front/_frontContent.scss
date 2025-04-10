@@ -1,0 +1,74 @@
+.frontContent {
+  min-height: 80vh;
+  padding-top: 98px;
+  padding-bottom: 40px;
+  background-position: bottom left;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../img/front/bg-wave4.png');
+  background-color: var(--gray0);
+
+  @include media-breakpoint-down(md) {
+    & {
+      background-size: 100% 24px;
+      padding-top: 66px;
+    }
+  }
+
+  //products spec - color
+  .colorSquare {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin: 0 auto 4px;
+    border: 1px solid var(--gray2);
+  }
+
+  //swiper style for frontContent
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: var(--primaryDefault);
+  }
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 20px;
+  }
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: var(--gray0);
+    opacity: 1;
+
+    &-active {
+      width: 16px;
+      height: 16px;
+      background: var(--primaryDark);
+      border: 2px solid var(--primaryDark);
+      margin-bottom: -2px !important;
+    }
+  }
+
+  //title style for frontContent
+  .titleUnderline {
+    position: relative;
+    padding: 0 16px;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      z-index: 2;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      border-radius: 30px;
+      background: var(--secondaryLight);
+    }
+    & span {
+      position: relative;
+      z-index: 3;
+    }
+  }
+} //end of frontContent

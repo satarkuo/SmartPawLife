@@ -1,0 +1,61 @@
+body {
+  background: var(--white);
+  color: var(--secondaryDark);
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 500; //medium
+  letter-spacing: 0.03em;
+}
+.h1 {
+  font-size: 2.5rem; //40px
+  line-height: 48px;
+  letter-spacing: 0.04em; //40px 的 4% 字距
+}
+.h2 {
+  font-size: 2rem;
+  line-height: 38.4px;
+} //32px
+.h3 {
+  font-size: 1.75rem;
+  line-height: 33.6px;
+} //28px
+.h4 {
+  font-size: 1.5rem;
+  line-height: 28.8px;
+} //24px
+.h5 {
+  font-size: 1.25rem;
+  line-height: 24px;
+} //20px
+.h6 {
+  font-size: 1rem;
+  line-height: 19.2px;
+} //16px
+
+p,
+.textBody1,
+.textBody2,
+.textBody3 {
+  font-weight: 400; //regular
+  letter-spacing: 1px;
+  color: var(--secondaryDark);
+  word-break: break-all;
+}
+p,
+.textBody1 {
+  font-size: 1.25rem;
+  line-height: 30px;
+} //20px
+.textBody2 {
+  font-size: 1rem;
+  line-height: 24px;
+} //16px
+.textBody3 {
+  font-size: 0.875rem;
+  line-height: 21px;
+} //14px

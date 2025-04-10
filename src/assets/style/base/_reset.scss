@@ -1,0 +1,27 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: relative;
+  word-break: break-all;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a,
+a:hover {
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
+  transition-duration: 0.3s;
+}

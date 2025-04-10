@@ -1,0 +1,20 @@
+//pagination style
+.pagination {
+  --bs-pagination-font-size: 1rem;
+  --bs-pagination-color: var(--secondaryDark);
+  --bs-pagination-bg: var(--gray0);
+  --bs-pagination-hover-color: var(--gray0);
+  --bs-pagination-hover-bg: var(--secondaryDark);
+  --bs-pagination-focus-color: var(--gray0);
+  --bs-pagination-focus-bg: var(--secondaryDark);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --bs-pagination-active-color: var(--gray0);
+  --bs-pagination-active-bg: var(--secondaryDark);
+  --bs-pagination-disabled-color: var(--gray2);
+  --bs-pagination-disabled-bg: var(--white);
+
+  a.page-link {
+    outline: none;
+    box-shadow: none;
+  }
+}

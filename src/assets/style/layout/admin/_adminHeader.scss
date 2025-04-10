@@ -1,0 +1,25 @@
+.adminHeader {
+  width: 260px;
+  background: var(--white);
+  height: 100vh;
+  border-right: 1px solid var(--gray1);
+
+  a.nav-link {
+    display: inline-block;
+    color: var(--gray4);
+
+    &:hover,
+    &.active {
+      color: var(--primaryDefault);
+      background: var(--primaryPestel);
+    }
+    .material-icons {
+      color: var(--gray2);
+      font-size: 16px;
+    }
+    &:hover .material-icons,
+    &.active .material-icons {
+      color: var(--primaryDefault);
+    }
+  }
+} //.adminHeader End
