@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { formatDate } from '../../utils/dateUtils';
 import UpdateOrderModal from '../../component/UpdateOrderModal';
+import { getPageOrdersData } from '../../redux/admin/adminOrderSlice';
 
 const AdminSingleOrder = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const { id: product_id } = params;
 
@@ -19,7 +21,15 @@ const AdminSingleOrder = () => {
   const [isChangeData, setIsChangeData] = useState(false); //是否有暫存變更資料，若有則提醒需儲存
 
   const initOrderData = () => {
-    const singleOrder = orders[0].filter((item) => item.id === product_id);
+    let singleOrder = [];
+    // 若重新整理失去RTK orders 資料，則改從localStorage取得
+    if (orders.length === 0) {
+      const localOrders = JSON.parse(localStorage.getItem('pageOrderData'));
+      dispatch(getPageOrdersData(localOrders));
+      singleOrder = localOrders[0].filter((item) => item.id === product_id);
+    } else {
+      singleOrder = orders[0].filter((item) => item.id === product_id);
+    }
     const productArray = Object.values(singleOrder[0].products);
     const origin_Total = productArray.reduce((sum, product) => sum + product.total, 0);
     setOrderData(singleOrder[0]);
@@ -141,125 +151,129 @@ const AdminSingleOrder = () => {
               返回訂單列表
             </Link>
           </div>
-          <table className="table align-middle adminTable">
-            <thead>
-              <tr>
-                <th>訂單編號</th>
-                <th>訂購時間</th>
-                <th>付款狀態</th>
-                <th>付款方式</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{orderData.id}</td>
-                <td>{formatDate(orderData.create_at)}</td>
-                <td>
-                  <div className="form-check">
-                    <input
-                      type="checkbox"
-                      name="is_paid"
-                      id="isPaid"
-                      checked={orderData.is_paid || false}
-                      disabled={userData.paymond === '線上刷卡'}
-                      onChange={handleOrderInputChange}
-                      className="form-check-input"
-                    />
-                    <label className="form-check-label" htmlFor="isPaid">
-                      已付款
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  {userData.paymond || '匯款轉帳'}
-                  {userData.paymond === '線上刷卡' && (
-                    <p className="textBody3 text-secondary m-0">卡號:{userData.cardNumber}</p>
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {orderData && (
+            <table className="table align-middle adminTable">
+              <thead>
+                <tr>
+                  <th>訂單編號</th>
+                  <th>訂購時間</th>
+                  <th>付款狀態</th>
+                  <th>付款方式</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{orderData.id}</td>
+                  <td>{formatDate(orderData.create_at)}</td>
+                  <td>
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        name="is_paid"
+                        id="isPaid"
+                        checked={orderData.is_paid || false}
+                        disabled={userData?.paymond === '線上刷卡'}
+                        onChange={handleOrderInputChange}
+                        className="form-check-input"
+                      />
+                      <label className="form-check-label" htmlFor="isPaid">
+                        已付款
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    {userData?.paymond || '匯款轉帳'}
+                    {userData?.paymond === '線上刷卡' && (
+                      <p className="textBody3 text-secondary m-0">卡號:{userData?.cardNumber}</p>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          )}
         </div>
         <div className="row">
           <div className="col-xxl-4 mb-4 mb-xxl-0">
             <div className="p-4 bg-white rounded-4 h-100">
               <h4 className="h4 mb-4">訂購人資料</h4>
-              <table className="table align-middle adminTable">
-                <tbody>
-                  <tr>
-                    <th width="100px">姓名</th>
-                    <td>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={userData.name || ''}
-                        onChange={handleUserInputChange}
-                        className="form-control"
-                        placeholder="請輸入姓名"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>電話</th>
-                    <td>
-                      <input
-                        type="tel"
-                        name="tel"
-                        id="tel"
-                        value={userData.tel || ''}
-                        onChange={handleUserInputChange}
-                        className="form-control"
-                        placeholder="請輸入電話"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>信箱</th>
-                    <td>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        value={userData.email || ''}
-                        onChange={handleUserInputChange}
-                        className="form-control"
-                        placeholder="請輸入信箱"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>地址</th>
-                    <td>
-                      <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        value={userData.address || ''}
-                        onChange={handleUserInputChange}
-                        className="form-control"
-                        placeholder="請輸入地址"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>留言</th>
-                    <td>
-                      <textarea
-                        id="message"
-                        className="form-control"
-                        cols="30"
-                        rows="5"
-                        name="message"
-                        onChange={handleOrderInputChange}
-                        placeholder="請輸入訂單留言"
-                      >
-                        {orderData.message}
-                      </textarea>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {userData && (
+                <table className="table align-middle adminTable">
+                  <tbody>
+                    <tr>
+                      <th width="100px">姓名</th>
+                      <td>
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          value={userData.name || ''}
+                          onChange={handleUserInputChange}
+                          className="form-control"
+                          placeholder="請輸入姓名"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>電話</th>
+                      <td>
+                        <input
+                          type="tel"
+                          name="tel"
+                          id="tel"
+                          value={userData.tel || ''}
+                          onChange={handleUserInputChange}
+                          className="form-control"
+                          placeholder="請輸入電話"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>信箱</th>
+                      <td>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          value={userData.email || ''}
+                          onChange={handleUserInputChange}
+                          className="form-control"
+                          placeholder="請輸入信箱"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>地址</th>
+                      <td>
+                        <input
+                          type="text"
+                          name="address"
+                          id="address"
+                          value={userData.address || ''}
+                          onChange={handleUserInputChange}
+                          className="form-control"
+                          placeholder="請輸入地址"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>留言</th>
+                      <td>
+                        <textarea
+                          id="message"
+                          className="form-control"
+                          cols="30"
+                          rows="5"
+                          name="message"
+                          onChange={handleOrderInputChange}
+                          placeholder="請輸入訂單留言"
+                        >
+                          {orderData?.message}
+                        </textarea>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
           <div className="col-xxl-8">
@@ -276,7 +290,7 @@ const AdminSingleOrder = () => {
                       數量/單位
                     </th>
                     <th className="text-end">小計</th>
-                    {!orderData.is_paid && <th width="100"></th>}
+                    {!orderData?.is_paid && <th width="100"></th>}
                   </tr>
                 </thead>
                 <tbody>

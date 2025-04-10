@@ -31,6 +31,7 @@ const AdminOrder = () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/${API_PATH}/admin/orders?page=${page}`);
       dispatch(getPageOrdersData([res.data.orders]));
+      localStorage.setItem('pageOrderData', JSON.stringify([res.data.orders]));
       setOrderList(res.data.orders);
       setPageInfo(res.data.pagination);
     } catch (error) {
