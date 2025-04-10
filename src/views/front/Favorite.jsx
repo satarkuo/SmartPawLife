@@ -85,7 +85,7 @@ const Favorite = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="container pb-5 pt-0 pt-md-5 col-xxl-6 m-auto">
+      <div className="container pb-5 pt-0 pt-md-5">
         <h2 className={`${isMobile ? 'h3' : 'h2'} text-center py-5`}>
           <span className="titleUnderline">
             <span>收藏清單</span>
@@ -100,12 +100,16 @@ const Favorite = () => {
             </Link>
           </p>
         )}
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-          {favoriteProducts?.map((product) => (
-            <div className="col mb-5" key={product.id}>
-              <ProductCard product={product} />
+        <div className="row ">
+          <div className="col-md-9 m-auto">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+              {favoriteProducts?.map((product) => (
+                <div className="col mb-5" key={product.id}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
