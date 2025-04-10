@@ -9,7 +9,8 @@ const ToastAlert = Swal.mixin({
   timerProgressBar: true,
   customClass: {
     title: 'textBody3',
-    popup: 'rounded-4',
+    popup: 'rounded-4 ',
+    container: 'custom-zindex-2000',
   },
   didOpen: (toast) => {
     toast.onmouseenter = Swal.stopTimer;
