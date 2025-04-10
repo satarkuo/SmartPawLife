@@ -426,7 +426,7 @@ const Cart = () => {
               <form className="col-md-6" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label d-flex align-content-center m-0">
-                    <span className="text-primary fs-5 me-2">*</span>Email
+                    Email<span className="text-primary fs-5 ms-1">*</span>
                   </label>
                   <input
                     id="email"
@@ -447,7 +447,7 @@ const Cart = () => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label d-flex align-content-center m-0">
-                    <span className="text-primary fs-5 me-2">*</span>收件人姓名
+                    收件人姓名<span className="text-primary fs-5 ms-1">*</span>
                   </label>
                   <input
                     id="name"
@@ -464,7 +464,7 @@ const Cart = () => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="tel" className="form-label d-flex align-content-center m-0">
-                    <span className="text-primary fs-5 me-2">*</span>收件人電話
+                    收件人電話<span className="text-primary fs-5 ms-1">*</span>
                   </label>
                   <input
                     id="tel"
@@ -485,7 +485,7 @@ const Cart = () => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="address" className="form-label d-flex align-content-center m-0">
-                    <span className="text-primary fs-5 me-2">*</span>收件人地址
+                    收件人地址<span className="text-primary fs-5 ms-1">*</span>
                   </label>
                   <input
                     id="address"
@@ -513,11 +513,11 @@ const Cart = () => {
                     {...register('message')}
                   ></textarea>
                 </div>
-                <div className="d-flex flex-column flex-lg-row gap-4 mb-3">
+                <div className="d-flex flex-column flex-lg-row gap-1 mb-3">
                   <span className="d-flex align-content-center" style={{ minWidth: '90px' }}>
-                    <span className="text-primary fs-5 me-2">*</span>付款方式
+                    付款方式<span className="text-primary fs-5 ms-1">*</span>
                   </span>
-                  <div className="d-flex flex-column flex-fill gap-3 ps-4">
+                  <div className="d-flex flex-column flex-fill gap-3 ps-0 ps-md-4">
                     <div className="form-check">
                       <input
                         id="paymond-cash"
@@ -573,7 +573,7 @@ const Cart = () => {
                             htmlFor="cardNumber"
                             className="form-label d-flex align-content-center m-0"
                           >
-                            <span className="text-primary fs-5 me-2">*</span>卡號
+                            卡號<span className="text-primary fs-5 ms-1">*</span>
                           </label>
                           <input
                             id="cardNumber"
@@ -602,7 +602,7 @@ const Cart = () => {
                               htmlFor="dueDate"
                               className="form-label d-flex align-content-center m-0"
                             >
-                              <span className="text-primary fs-5 me-2">*</span>有效日期
+                              有效日期<span className="text-primary fs-5 ms-1">*</span>
                             </label>
                             <input
                               id="dueDate"
@@ -630,7 +630,7 @@ const Cart = () => {
                               htmlFor="cvv"
                               className="form-label d-flex align-content-center m-0"
                             >
-                              <span className="text-primary fs-5 me-2">*</span>卡片驗證碼
+                              卡片驗證碼<span className="text-primary fs-5 ms-1">*</span>
                             </label>
                             <input
                               id="cvv"
