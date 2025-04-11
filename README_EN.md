@@ -9,6 +9,17 @@ Key features include product browsing, shopping cart, checkout process, coupon m
 
 ---
 
+## 🔐 Test Account
+
+You can use the same account for admin login:
+
+```txt
+Email: satarkuo@gmail.com
+Password: 123456
+```
+
+---
+
 ## ✨ Features
 
 ### 🔸 Frontend
@@ -38,7 +49,8 @@ Key features include product browsing, shopping cart, checkout process, coupon m
 ## 🛠 Tech Stack & Tools
 
 - **Framework**: React + Vite
-- **Styling**: Bootstrap 5, SCSS, Material Icons
+- **Styling**: Bootstrap 5, SCSS, Material Icons、Sass 7-1 Pattern
+- **Packages used**: SweetAlert2 (alert dialogs), react-loading (loading animations)
 - **Routing**: React Router
 - **State Management**: useState, useEffect, Redux Toolkit
 - **Form Handling**: react-hook-form
@@ -95,17 +107,6 @@ src/
 ├─ routes/     # Route configuration (React Router)
 ├─ utils/      # Utility functions (e.g., date formatting)
 └─ views/      # Page-level components (all frontend and admin pages)
-```
-
----
-
-## 🔐 Test Account
-
-You can use the same account for frontend and admin login:
-
-```txt
-Email: satarkuo@gmail.com
-Password: 123456
 ```
 
 ---
@@ -169,6 +170,22 @@ Note: All order and contact data shown are mock data.
 - JavaScript Instructors: Principal Wei-Chieh, Teacher Ying-Min
 
 - Project Coach: Yennefer
+
+- Project Mentor: Coach Yennefer
+
+- Course Teaching Assistants: TA Jay, TA Jerry
+
+## 🛠️ Project Revision Log
+
+- Project Reviewer (TA): TA Jerry
+
+- Project Design Reviewer: Designer Jamie
+
+- Revisions were made based on the guidance provided by the teaching assistants and designer, with the process documented accordingly.
+
+- [🔗 2025/03/31 - Revision Requests](https://wax-gladiolus-68e.notion.site/20250331-1c71186c0f56801982dde281079f4424?pvs=4)
+
+- [🔗 2025/04/08 - Revision Requests](https://wax-gladiolus-68e.notion.site/20250408-1d01186c0f568027a76de0eb7d64cf55?pvs=4)
 
 ---
 
