@@ -16,13 +16,32 @@ SmartPawLife 是一個專為寵物打造的智慧電商平台，包含前台購�
 後台登入可使用以下帳號：
 
 ```txt
-帳號：satarkuo@gmail.com
-密碼：123456
+測試帳號：satarkuo@gmail.com
+測試密碼：123456
 ```
 
 ---
 
+## 🙋‍♀️ 開發與參與人員
+
+- 前端：本人，負責前端開發，包含前台後台切版、API串接、功能資料渲染
+
+- 後台設計：本人
+
+- 前台設計：Ｍillie Qiu 設計師
+
+---
+
 ## ✨ 功能介紹
+
+### 🔸 功能簡介
+
+- 使用 React + Redux Toolkit 建構前台購物流程與後台管理系統
+- 串接 RESTful API，支援商品、訂單、優惠券 操作
+- 使用 Sass 7-1 Pattern 管理樣式、整合 Bootstrap5、Material Icons
+- 完成購物車功能、商品篩選搜尋、RWD 響應式設計
+- 前後台登入系統，登入憑證以 Cookie 管理
+- 使用 Vite 開發、Prettier、ESLint 統一團隊程式碼風格
 
 ### 🔸 前台功能
 
@@ -58,38 +77,6 @@ SmartPawLife 是一個專為寵物打造的智慧電商平台，包含前台購�
 - **表單管理**：react-hook-form
 - **API 串接**：Axios（串接課程提供 API）
 - **畫面邏輯**：前後台功能與頁面功能皆由本人自行實作（含資料渲染、錯誤處理等）
-- **Dependencies**：
-
-```txt
-@reduxjs/toolkit: ^2.6.0,
-axios: ^1.7.9,
-bootstrap: ^5.3.3,
-material-icons: ^1.13.14,
-react: ^18.3.1,
-react-dom: ^18.3.1,
-react-hook-form: ^7.54.2,
-react-loading: ^2.0.3,
-react-redux: ^9.2.0,
-react-router-dom: ^6.29.0,
-sweetalert2: ^11.17.2,
-swiper: ^11.2.5
-```
-
-- **DevDependencies**：
-
-```txt
-@eslint/js: ^9.19.0,
-@types/react: ^19.0.8,
-@types/react-dom: ^19.0.3,
-@vitejs/plugin-react: ^4.3.4,
-eslint: ^9.19.0,
-eslint-plugin-react: ^7.37.4,
-eslint-plugin-react-hooks: ^5.0.0,
-eslint-plugin-react-refresh: ^0.4.18,
-globals: ^15.14.0,
-sass: ^1.62.1,
-vite: ^6.1.0
-```
 
 ---
 
@@ -99,7 +86,7 @@ vite: ^6.1.0
 
 ```txt
 src/
-├─ assets/      # 靜態資源（圖檔、樣式等）
+├─ assets/      # 靜態資源（圖檔、Sass 7-1 Pattern管理樣式等）
 ├─ component/   # 可重複使用的元件
 ├─ data/        # 靜態資料
 ├─ hooks/       # 自定義 React Hooks
@@ -122,16 +109,6 @@ npm install
 npm run dev
 ```
 
-🔸 備註：此專案為前端練習作品，API 為課程提供，無需額外啟動後端伺服器。
-
----
-
-## ✨ 開發規劃與擴充方向
-
-- 搭配 json-server 與 \_expand 關聯參數，實作會員、專欄文章、商品評價的關聯資料展示
-- 實作寵物專欄（部落格）列表與內文頁面
-- 搭配 json-server 實作專欄文章、會員身份、評價系統的 \_expand資料關聯
-
 ---
 
 ## 📷 畫面預覽
@@ -148,61 +125,4 @@ npm run dev
 
 ### 後台訂單管理畫面
 
-備註：訂單資料與聯絡資訊皆為模擬資料
-
 ![後台訂單管理截圖](./screenshots/adminSingleOrder.png)
-
----
-
-## 🙋‍♀️ 開發與參與人員
-
-- 前端：Satar Kuo
-
-- 後台設計：Satar Kuo
-
-- 前台設計：Ｍillie Qiu 設計師
-
-- 使用六角React專題課程API進行開發，如有建議或想法歡迎 Issue 或聯絡我！
-
-## 📚 指導導師（六角學院）
-
-- React技術導師：卡斯伯老師
-
-- JS技術導師：洧杰校長、穎旻老師
-
-- 專題教練：Yennefer教練
-
-- 課程助教：Jay助教、傑利助教
-
-## 🛠️ 專案修改需求紀錄
-
-- 專題批改助教：傑利助教
-
-- 專題批改設計師：Jamie 設計師
-
-- 根據助教與設計師指導建議進行修改，並以文件記錄處理方式
-
-- [🔗 20250331-修改需求](https://wax-gladiolus-68e.notion.site/20250331-1c71186c0f56801982dde281079f4424?pvs=4)
-
-- [🔗 20250408-修改需求](https://wax-gladiolus-68e.notion.site/20250408-1d01186c0f568027a76de0eb7d64cf55?pvs=4)
-
----
-
-## 🏅 技術證書
-
-### ✨ React 完課證書（六角學院）
-
-- 所有作業皆以最高等級LV3完成
-- 已完成課程，預計於2025/5/12發放完課證書
-
-### ✨ React 上機考A級証書（六角學院）
-
-- 試題包含觀念選擇題、上機考實作題型
-
-![截圖](./screenshots/reactExamCertificate.png)
-
-### ✨ JS 完課證書（六角學院）
-
-- 所有作業皆以最高等級LV3完成
-
-![截圖](./screenshots/jsCertificate.png)
