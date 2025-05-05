@@ -434,7 +434,7 @@ const AdminSingleOrder = () => {
           <button
             type="submit"
             className="btn btn-primary me-3"
-            disabled={isChangeData}
+            disabled={!isChangeData}
             onClick={() => {
               updateOrder(orderData, userData, productsData);
             }}
